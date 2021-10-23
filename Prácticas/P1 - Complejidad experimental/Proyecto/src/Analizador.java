@@ -113,7 +113,7 @@ public class Analizador {
 	 */
 	private static void guardarTiempos(List<Double> tiempos, Map<String, Datos> tabla) {
 		for (String complejidad : new String[]{"1", "NLOGN", "N", "LOGN", "N2", "N3", "2N", "NF"}) {
-			tabla.put(complejidad, new Datos(complejidad, adaptarMedias(complejidad, tiempos)));
+			tabla.put(complejidad, new Datos(adaptarMedias(complejidad, tiempos)));
 		}
 	}
 
@@ -207,10 +207,10 @@ public class Analizador {
 		Set<Entry<String, Datos>> entradas = complejidades.entrySet();
 
         for (Entry<String, Datos> entrada : entradas) {
-        	double diferencia = Math.abs(entrada.getValue().getRatio() - 1);
+        	double diferencia = Math.abs(entrada.getValue().ratio - 1);
 
         	// El mejor ratio es el más próximo a 1 (por encima o por debajo)
-        	if(diferencia < mejor) {
+        	if (diferencia < mejor) {
         		mejor = diferencia;
         		complejidad = entrada.getKey();
 			}
@@ -221,14 +221,14 @@ public class Analizador {
 
 
 	/**
-	 * Calcula el factorial de un número
+	 * Calcula el factorial de un número.
 	 *
-	 * @param n	Número
+	 * @param n		Número
 	 *
-	 * @return El factorial del número indicado
+	 * @return 	El factorial del número indicado
 	 */
 	private static long factorial(long n) {
-		if(n == 0) {
+		if (n == 0) {
 			return 1;
 
 		} else {
