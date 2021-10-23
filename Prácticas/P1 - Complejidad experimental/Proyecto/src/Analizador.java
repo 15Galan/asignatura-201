@@ -30,77 +30,56 @@ public class Analizador {
 	/**
 	 * Ejecuta el programa principal del proyecto.
 	 *
-	 * @param arg	Array de argumentos
+	 * @param args	Array de argumentos
 	 */
-	public static void main(String[] arg) {
+	public static void main(String[] args) {
 		Map<String, Datos> tabla = new TreeMap<>();		// Mapa que relaciona cada complejidad con unos tiempos
-		List<Double> tiempos;							// Tiempos medios de cada array anterior (media/posición)
-		int intentos = 100;								// Número de intentos para sacar una media
+		List<Double> tiempos;							// Lista de los tiempos medios de ejecución
+		int precision = 100;							// Número de repeticiones para cada entrada
 
+		tiempos = calcularTiempos(precision, TIEMPO_MAX/2);
 
-		tiempos = calcularTiempos(intentos, TIEMPO_MAX/2);
+		guardarTiempos(tiempos, tabla);
 
-		// Guardar tiempos TODO: Modularizar
-		for (String complejidad : new String[]{"1", "NLOGN", "N", "LOGN", "N2", "N3", "2N", "NF"}) {
-			tabla.put(complejidad, new Datos(complejidad, adaptarMedias(complejidad, tiempos)));
-		}
-
-//		Set<Entry<String, Datos>> entradas = tabla.entrySet();
-//
-//		for(Entry<String, Datos> entrada : entradas) {
-////			System.out.println(entrada.getKey() + " : " + entrada.getValue().getRatio());
-//            System.out.println(entrada.getKey() + " : " + entrada.getValue().getTiempos());
-//		}
-
-		String resultado = determinarComplejidad(tabla);
-
-//		System.out.println("\n" + resultado + "\t" + tabla.get(resultado).getRatio());
-		System.out.println(resultado);
-
-//		System.out.println("\n- FINAL -\n\n" + String.format("%.3f Seg", (double) ejecucion.tiempoPasado()*Math.pow(10, -9)));
+		System.out.println(determinarComplejidad(tabla));
 	}
 
 
 	/**
-	 * Ejecuta el algoritmo varias veces con distintos valores y almacena su media de tiempos en una lista;
-	 * esto solo se llevará a cabo hasta que el tiempo de ejecución supere el tiempo límite indicado.
+	 * Ejecuta el algoritmo para los valores de entrada, realizando la media de varias ejecuciones de cada valor 'n'.
 	 *
-	 * @param intentos		Veces que el algoritmo se ejecutará para un mismo valor
-	 * @param tiempoMax		Duración aproximada de este método (nano-segundos); debe ser bastante menor que TIEMPO_MAX
+	 * @param repeticiones	Veces que el algoritmo se ejecutará para cada entrada
+	 * @param limite		Duración aproximada de este método (nano-segundos); debe ser bastante menor que TIEMPO_MAX
 	 *
 	 * @return	Una lista de medias de tiempos de ejecución para cada valor de entrada del algoritmo
 	 */
-	private static List<Double> calcularTiempos(int intentos, double tiempoMax) {
-		Temporizador acumulado = new Temporizador(2);		// Contará el tiempo de ejecución de este método
-		List<Double> tiempos = new ArrayList<>();				// Lista final de medias
-
-		boolean continuar = true;	// Determina si es posible ejecutar el algoritmo una vez más
-		double duracion;			// Tiempo total de ejecución del algoritmo para un valor determinado
+	private static List<Double> calcularTiempos(int repeticiones, double limite) {
+		Temporizador acumulado = new Temporizador(2);		// Mide el tiempo de ejecución de este método
+		List<Double> tiempos = new ArrayList<>();				// Tiempos calculados
+		boolean continuar = true;								// Indicador para finalizar la ejecución de este método
 
 		acumulado.iniciar();
 
 		int i = 0;
 		while (i < n.length && continuar) {
-			duracion = 0;
+			double duracion = 0;
 
 			int j = 0;
 
-			// Calcular el tiempo medio del algoritmo para un valor determinado
-			while (j < intentos && continuar) {
-				duracion += ejecutar(n[i]);			// Medir el tiempo de ejecución del algoritmo
+			// Calcula el tiempo de ejecución de una entrada del algoritmo
+			while (j < repeticiones && continuar) {
+				duracion += ejecutar(n[i]);
 
-				if (acumulado.tiempoPasado() > tiempoMax) {
+				if (acumulado.tiempoPasado() > limite) {
 					continuar = false;
 				}
 
 				j++;
 			}
 
-			// Si aún queda tiempo disponible, se añade el valor calculado a la lista
+			// Si aún queda tiempo de ejecución disponible, se añade el valor calculado a la lista
 			if (continuar) {
-				tiempos.add(duracion/intentos);
-
-				System.out.println("\tT(" + n[i] + ") = " + duracion/intentos * Math.pow(10, -9) + " seg");
+				tiempos.add(duracion/repeticiones);		// Media para varios tiempos de una misma entrada
 			}
 
 			i++;
@@ -110,7 +89,7 @@ public class Analizador {
 	}
 
 	/**
-	 * Ejecuta el algoritmo para un determinado valor.
+	 * Ejecuta el algoritmo para un determinado valor de entrada.
 	 *
 	 * @param n		Entrada del algoritmo
 	 *
@@ -124,6 +103,18 @@ public class Analizador {
 		temporizador.parar();
 
 		return temporizador.tiempoPasado();
+	}
+
+	/**
+	 * Asigna a cada orden de complejidad un array de tiempos que lo identifica.
+	 *
+	 * @param tiempos	Valores temporales base para producir los valores temporales de las complejidades
+	 * @param tabla		Tabla donde guardar el identificador del orden de complejidad y sus valores temporales
+	 */
+	private static void guardarTiempos(List<Double> tiempos, Map<String, Datos> tabla) {
+		for (String complejidad : new String[]{"1", "NLOGN", "N", "LOGN", "N2", "N3", "2N", "NF"}) {
+			tabla.put(complejidad, new Datos(complejidad, adaptarMedias(complejidad, tiempos)));
+		}
 	}
 
 	/**
@@ -147,7 +138,7 @@ public class Analizador {
 
 				case "LOGN":
 					for (int i = 0; i < medias.size(); i++) {
-						arregladas.add(medias.get(i) / Math.log(n[i]));		// Puede dar infinito, pero no afecta
+						arregladas.add(medias.get(i) / Math.log(n[i]));			// Puede dar infinito, pero no afecta
 					}
 
 					break;
@@ -175,21 +166,21 @@ public class Analizador {
 
 				case "N3":
 					for (int i = 0; i < medias.size(); i++) {
-						arregladas.add(medias.get(i) / Math.pow(n[i], 3));	// Puede dar NaN, pero no afecta
+						arregladas.add(medias.get(i) / Math.pow(n[i], 3));		// Puede dar NaN, pero no afecta
 					}
 
 					break;
 
 				case "2N":
 					for (int i = 0; i < medias.size(); i++) {
-						arregladas.add(medias.get(i) / Math.pow(2, n[i]));	// Puede dar NaN, pero no afecta
+						arregladas.add(medias.get(i) / Math.pow(2, n[i]));		// Puede dar NaN, pero no afecta
 					}
 
 					break;
 
 				case "NF":
 					for (int i = 0; i < medias.size(); i++) {
-						arregladas.add(medias.get(i) / factorial(n[i]));	// Puede desbordar la memoria
+						arregladas.add(medias.get(i) / factorial(n[i]));		// Puede desbordar la memoria
 					}
 			}
 
@@ -201,13 +192,13 @@ public class Analizador {
 	}
 
 	/**
-	 * Dado un mapa cuyas claves son complejidades y sus valores asociados son objetos de la clase Datos (que contiene
-	 * el nombre de la complejidad, sus tiempos medios adaptados y su ratio), comprueba cuál de las complejidades
-	 * tiende a un valor constante.
+	 * Dado un mapa cuyas claves son los órdenes de complejidad, y sus valores asociados
+	 * son objetos de la clase Datos (que contiene sus tiempos medios adaptados y su ratio),
+	 * comprueba cuál de las complejidades tiende a un valor constante.
 	 *
-	 * @param complejidades Mapa con todos los datos calculados para cada complejidad
+	 * @param complejidades		Mapa con todos los datos calculados para cada complejidad
 	 *
-	 * @return La complejidad del mapa con el ratio más cercano a 1 (a ser constante)
+	 * @return	La complejidad del mapa con el ratio más cercano a 1 (tendencia a constante)
 	 */
 	private static String determinarComplejidad(Map<String, Datos> complejidades) {
         String complejidad = "-";	// Resultado final
