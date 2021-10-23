@@ -35,7 +35,7 @@ public class Analizador {
 	public static void main(String[] args) {
 		Map<String, Datos> tabla = new TreeMap<>();		// Mapa que relaciona cada complejidad con unos tiempos
 		List<Double> tiempos;							// Lista de los tiempos medios de ejecución
-		int precision = 100;							// Número de repeticiones para cada entrada
+		int precision = 500;							// Número de repeticiones para cada entrada
 
 		tiempos = calcularTiempos(precision, TIEMPO_MAX/2);
 
