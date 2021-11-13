@@ -1,19 +1,20 @@
-/**
- * @author Pepe Gallardo
- * @modifiedby Jose A. Onieva
- * @modifiedby Ricardo Conejo
- * Implementación de otros métodos de ordenación para comparar tiempos de ejecución
- */
-
 import java.util.Random;
 
+/**
+ * ImplementaciÃ³n de otros mÃ©todos de ordenaciÃ³n para comparar tiempos de ejecuciÃ³n
+ *
+ * @author Pepe Gallardo
+ *
+ * @modifiedby Jose A. Onieva
+ * @modifiedby Ricardo Conejo
+ */
 
 public abstract class Ordenacion {
 	
-	// Generador de números aleatorios
+	// Generador de nÃºmeros aleatorios
 	protected static Random aleat = new Random();
 	
-	// este metodo se redefine en las subclases
+	// Este mÃ©todo se redefine en las subclases
 	public static <T extends Comparable<? super T>> void ordenar(T v[]) {
 	}
 		
@@ -24,12 +25,12 @@ public abstract class Ordenacion {
         v[j] = tmp;
     }  
     
-	// Convierte un vector a una cadena de caracteres.
+	// Convierte un vector a una cadena de caracteres
 	public static <T> String vectorAString(T v[]) {
 				String res = "[";
 				for(int i=0; i<v.length; i++)
 					res += v[i].toString()+(i==v.length-1 ? ']' : ',');
-				return res;	
+				return res;
 	}
 	
 }

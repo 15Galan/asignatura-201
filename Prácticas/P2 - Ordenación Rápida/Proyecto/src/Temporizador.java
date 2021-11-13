@@ -1,8 +1,9 @@
 /**
- * @author Pepe Gallardo
+ * Temporizadores para medir tiempos de ejecuciÃ³n
  *
- * Temporizadores para medir tiempos de ejecución
+ * @author Pepe Gallardo
  */
+
 public class Temporizador {
 
 	private boolean andando;

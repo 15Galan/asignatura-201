@@ -1,39 +1,82 @@
-////////////////////////////////////////////////////////////////////////////////////////////
-// ALUMNO:
-// GRUPO:
-////////////////////////////////////////////////////////////////////////////////////////////
+// UNIVERSIDAD DE MÁLAGA
+// --------------------------------------------------
+// Escuela Técnica Superior de Ingeniería Informática
+// --------------------------------------------------
+// Análisis y Diseño de Algoritmos
+// 		Práctica 2: Ordenación rápida
+// 			Apartado (c)
 
 import java.util.Scanner;
 
-public final class BuscaElem{
-	
-	public static <T extends Comparable<? super T>> T kesimo(T v[], int k) {
-		return kesimoRec(v,0,v.length-1,k);
-	}
 
-	public static <T extends Comparable<? super T>> T kesimoRec(T v[], int izq, int der, int k) {
-		// A IMPLEMENTAR POR EL ALUMNO
-		return v[0];
-    }
-	
-	
-	/**
-	 * @param args
-	 */
+/**
+ * Ordena un vector de elementos de forma ascendente.
+ *
+ * @author 		Antonio J. Galán Herrera
+ */
+public final class BuscaElem {
+
 	public static void main(String[] args) {
-		int maxvector;
-		int i,k;
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduce el numero de posiciones del vector: ");
-		maxvector=sc.nextInt();
-		Integer v[]=new Integer[maxvector];
+		int tam, k;
 
-		System.out.print("Introduce "+maxvector+" enteros separados por espacios: ");
-		for (i=0;i<maxvector;i++) v[i]=sc.nextInt();
-		System.out.print("Introduce la posicion k deseada (de 1-"+maxvector+"): ");k=sc.nextInt();
-		Integer elem=kesimo(v,k-1);
-		System.out.print("El elemento "+k+"-esimo es: "+elem);
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("Introduce el número de posiciones del vector: ");
+
+		tam = sc.nextInt();
+
+		Integer[] v = new Integer[tam];
+
+		System.out.print("Introduce " + tam + " enteros separados por espacios: ");
+
+		for (int i = 0; i < tam; i++) {
+			v[i] = sc.nextInt();
+		}
+
+		System.out.print("Introduce la posición k deseada (de 1-" + tam + "): ");
+
+		k = sc.nextInt();
+
+		System.out.print("El elemento " + k + "-esimo es: " + kesimo(v,k-1));
 	}
 
+	/**
+	 * Devuelve el valor contenido en la posición k-ésima
+	 * de un vector si estuviera ascendentemente ordenado.
+	 *
+	 * @param V 	Vector a ordenar
+	 * @param k 	Posición del valor deseado
+	 * @param <T> 	Tipo del vector
+	 *
+	 * @return 	Valor en la posición k del vector ya ordenado
+	 */
+	public static <T extends Comparable <? super T>> T kesimo(T[] V, int k) {
+		return kesimoRec(V, 0, V.length-1, k);
+	}
+
+	/**
+	 * Busca un valor k-ésimo en un intervalo de un vector
+	 *
+	 * @param V 	Vector
+	 * @param izq 	Valor inicial del intervalo
+	 * @param der 	Valor final del intervalo
+	 * @param k 	Posición del elemento deseado
+	 * @param <T> 	Tipo del vector
+	 *
+	 * @return 	Valor contenido en la posición k del vector
+	 */
+	public static <T extends Comparable <? super T>> T kesimoRec(T[] V, int izq, int der, int k) {
+		while (izq != k || der != k) {
+			int med = OrdenacionRapida.partir(V, V[izq], izq, der);
+
+			if (k > med) {		// Debe buscar en el intervalo superior al pivote
+				izq = med+1;
+
+			} else {			// Debe buscar en el intervalo inferior al pivote
+				der = med;
+			}
+		}
+
+		return V[k];
+    }
 }

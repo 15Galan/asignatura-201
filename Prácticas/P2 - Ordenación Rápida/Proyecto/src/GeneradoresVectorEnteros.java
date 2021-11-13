@@ -1,21 +1,19 @@
-/**
- * @author Pepe Gallardo
- *
- * Generadores aleatorios de vectores de enteros con distintas distribuciones
- */
-
-
 import java.util.Random;
 
+/**
+ * Generadores aleatorios de vectores de enteros con distintas distribuciones
+ *
+ * @author Pepe Gallardo
+ */
 
 public class GeneradoresVectorEnteros {
-	// Generador de n�meros aleatorios
-	private static Random aleat = new Random();
+	// Generador de números aleatorios
+	private static final Random aleat = new Random();
 	
-	// Genera un vector con distribuci�n aleatoria
+	// Genera un vector con distribución aleatoria
 	public static GeneradorVector<Integer> aleatorio = new GeneradorVector<Integer>() {
 		public Integer [] nuevoVector(int tamano) {
-			Integer v[] = new Integer[tamano];
+			Integer[] v = new Integer[tamano];
 			
 			for(int i=0; i<tamano; i++)
 				v[i] = aleat.nextInt(10*tamano);
@@ -26,7 +24,7 @@ public class GeneradoresVectorEnteros {
 	// Genera un vector aleatorio pero ordenado ascendentemente
 	public static GeneradorVector<Integer> ordenadoAscendente = new GeneradorVector<Integer>() {
 		public Integer [] nuevoVector(int tamano) {
-			Integer v[] = new Integer[tamano];
+			Integer[] v = new Integer[tamano];
 			if(tamano>0)
 				v[0] = aleat.nextInt(100);
 			for(int i=1; i<tamano; i++)

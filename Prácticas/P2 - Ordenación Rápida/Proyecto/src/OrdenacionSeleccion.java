@@ -1,13 +1,15 @@
 /**
+ * Implementaci贸n de otros m茅todos de ordenaci贸n para comparar tiempos de ejecuci贸n
+ *
  * @author Pepe Gallardo
+ *
  * @modifiedby Jose A. Onieva
  * @modifiedby Ricardo Conejo
- * Implementaci髇 de otros m閠odos de ordenaci髇 para comparar tiempos de ejecuci髇
  */
 
 public class OrdenacionSeleccion extends Ordenacion {
 
-	// Implementaci髇 de ordenaci髇 por selecci髇 (para comparar tiempos experimentalmente)
+	// Implementaci贸n de ordenaci贸n por selecci贸n (para comparar tiempos experimentalmente)
 	public static <T extends Comparable<? super T>> void ordenar(T v[]) {
 		for(int i=0; i<v.length-1; i++) {
 			int posMin = i;

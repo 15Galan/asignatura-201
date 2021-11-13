@@ -1,22 +1,20 @@
-
 /**
+ * Muestra gráficas con el comportamiento experimental
+ * de la implementación frente a otros métodos de ordenación
+ *
  * @author Pepe Gallardo
- * 
- * Muestra gr�ficas con el comportamiento experimental de la implementaci�n
- * frente a otros m�todos de ordenaci�n
- * 
  */
 
 public class TestsTiempos {
 
 	public static double aMilisegs(long n) {
-		return (1e-6*(double) n);
+		return (1e-6 * (double) n);
 	}
 	
 	public static void testResolverTodos(GeneradorVector<Integer> generador, String subtitulo) {
 	
-		int numTests = 20; //n�mero de tests para cada tama�o
-		int minTam = 0, maxTam = 2000, saltoTam = 25; //tama�os m�nimos, m�ximos y saltos
+		int numTests = 20; //número de tests para cada tamaño
+		int minTam = 0, maxTam = 2000, saltoTam = 25; //tamaños mínimos, máximos y saltos
 		
 		final Grafica gr  = new Grafica ( "Tiempo de ordenaci\u00f3n para distintos tama\u00f1os de vector"
 				                 		, subtitulo
@@ -27,18 +25,18 @@ public class TestsTiempos {
                 						);
 
 		abstract class Resolutor {
-			Temporizador tempo;
-			Grafica.Linea ln;
+			final Temporizador tempo;
+			final Grafica.Linea ln;
 			
 			Resolutor(String label) {
 				tempo = new Temporizador();
 				ln = gr.new Linea(label);
 			}
 			
-			abstract void ordena(Integer v[]);
+			abstract void ordena(Integer[] v);
 			
-			void ejecutaCon (Integer v[]) {
-				Integer vAux[] = v.clone();						
+			void ejecutaCon (Integer[] v) {
+				Integer[] vAux = v.clone();
 				tempo.iniciar();
 				ordena(vAux);
 				tempo.parar();				
@@ -46,25 +44,25 @@ public class TestsTiempos {
 		}	
 		
 	
-		Resolutor resolutores[] = {
+		Resolutor[] resolutores = {
                new Resolutor("Ord Burbuja") { 
-				void ordena(Integer v[]) { OrdenacionBurbuja.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionBurbuja.ordenar(v); } }
              , new Resolutor("Ord Selecci\u00f3n") { 
-				void ordena(Integer v[]) { OrdenacionSeleccion.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionSeleccion.ordenar(v); } }
              , new Resolutor("Ord Inserci\u00f3n") { 
-				void ordena(Integer v[]) { OrdenacionInsercion.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionInsercion.ordenar(v); } }
              , new Resolutor("Ord Mezcla") { 
-				void ordena(Integer v[]) { OrdenacionMezcla.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionMezcla.ordenar(v); } }
              , new Resolutor("Ord R\u00e1pida") { 
-				void ordena(Integer v[]) { OrdenacionRapida.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionRapida.ordenar(v); } }
              , new Resolutor("Ord R\u00e1pida (barajada)") { 
-				void ordena(Integer v[]) { OrdenacionRapidaBarajada.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionRapidaBarajada.ordenar(v); } }
              , new Resolutor("Ord Java") { 
-				void ordena(Integer v[]) { OrdenacionJava.ordenar(v); } }
+				void ordena(Integer[] v) { OrdenacionJava.ordenar(v); } }
 			 };
 			
 		
-		for(int n=minTam; n<=maxTam; n+=saltoTam) {
+		for(int n = minTam; n <= maxTam; n += saltoTam) {
 			
 			// resetear temporizadores
 			for (Resolutor r : resolutores) 
@@ -77,12 +75,12 @@ public class TestsTiempos {
 			
 			// registrar las medias de tiempo para cada algoritmo
 			for (Resolutor r : resolutores) 
-				r.ln.anadeDatos((double) n, aMilisegs(r.tempo.tiempoPasado())/numTests);						
+				r.ln.anadeDatos(n, aMilisegs(r.tempo.tiempoPasado())/numTests);
 		}
 		
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		testResolverTodos( GeneradoresVectorEnteros.casiOrdenadoAscendente
 				         , "Datos inicialmente casi ordenados ascendentemente");		
 		testResolverTodos( GeneradoresVectorEnteros.aleatorio
@@ -91,5 +89,4 @@ public class TestsTiempos {
 				         , "Datos inicialmente ordenados descendentemente");			
 	}
 
-	
 }

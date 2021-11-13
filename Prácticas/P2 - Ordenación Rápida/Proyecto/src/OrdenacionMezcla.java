@@ -1,43 +1,44 @@
 /**
+ * Implementaci贸n de otros m茅todos de ordenaci贸n para comparar tiempos de ejecuci贸n
+ *
  * @author Pepe Gallardo
+ *
  * @modifiedby Jose A. Onieva
  * @modifiedby Ricardo Conejo
- * Implementaci髇 de otros m閠odos de ordenaci髇 para comparar tiempos de ejecuci髇
  */
 
 
 public class OrdenacionMezcla extends Ordenacion {
 	
-    // Implementaci髇 de ordenaci髇 por mezcla (para comparar tiempos experimentalmente)
-    public static <T extends Comparable<? super T>> void ordenar(T v[]) {
-    	ordMezclaRec(v, 0, v.length);
+    // Implementaci贸n de ordenaci贸n por mezcla (para comparar tiempos experimentalmente)
+    public static <T extends Comparable<? super T>> void ordenar(T[] V) {
+    	ordMezclaRec(V, 0, V.length);
     } 
 
-    public static <T extends Comparable<? super T>> void ordMezclaRec(T v[], int izq, int der) {
+    public static <T extends Comparable<? super T>> void ordMezclaRec(T[] V, int izq, int der) {
         int n = der - izq;        
 
-        if (n<=1) 
+        if (n<=1)
         	return; // Caso base
-        else {        
+        else {
 	        int cen = izq + n/2; 
-	        ordMezclaRec(v, izq, cen); 
-	        ordMezclaRec(v, cen, der); 
+	        ordMezclaRec(V, izq, cen);
+	        ordMezclaRec(V, cen, der);
 	
 	        // mezcla
 	        @SuppressWarnings("unchecked")
-	        T aux[] = (T []) new Comparable[n];
+			T[] aux = (T []) new Comparable[n];
 	
 	        int i = izq, j = cen;
 	        for (int k=0; k<n; k++) {
-	            if (i==cen) aux[k] = v[j++];
-	            else if (j==der) aux[k] = v[i++];
-	            else if (v[j].compareTo(v[i]) < 0) aux[k] = v[j++];
-	            else aux[k] = v[i++];
+	            if (i==cen) aux[k] = V[j++];
+	            else if (j==der) aux[k] = V[i++];
+	            else if (V[j].compareTo(V[i]) < 0) aux[k] = V[j++];
+	            else aux[k] = V[i++];
 	        }
 	        // Copiar el vector ordenado
-	        for (int k=0; k<n; k++) 
-	            v[izq+k] = aux[k];
+	        for (int k=0; k<n; k++)
+	            V[izq+k] = aux[k];
         }        
-    } 
-
     }
+}

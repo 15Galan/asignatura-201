@@ -1,10 +1,11 @@
 /**
+ * Implementación de otros métodos de ordenación para comparar tiempos de ejecución
+ *
  * @author Pepe Gallardo
+ *
  * @modifiedby Jose A. Onieva
  * @modifiedby Ricardo Conejo
- * Implementaci�n de otros m�todos de ordenaci�n para comparar tiempos de ejecuci�n
  */
-
 
 public class OrdenacionInsercion extends Ordenacion {
 	  
@@ -13,8 +14,8 @@ public class OrdenacionInsercion extends Ordenacion {
 		ordInsercionRec(v, v.length);
 	}
 
-	// Implementaci�n de ordenaci�n por inserci�n (para comparar tiempos experimentalmente)
-	// Permite ordenar un vector completo (n�mero de elementos a ordenar = longitud del vector).
+	// Implementación de ordenación por inserción (para comparar tiempos experimentalmente)
+	// Permite ordenar un vector completo (número de elementos a ordenar = longitud del vector).
 	// Debe ordenar ascendentemente los primeros @n elementos del vector @v con 
 	// una implementacion recursiva del metodo de ordenacion por insercion.
 	protected static <T extends Comparable<? super T>> void ordInsercionRec(T v[], int n) {

@@ -1,14 +1,14 @@
 /**
+ * La implementaciÃ³n del alumno debe pasar este test experimental
+ *
  * @author Pepe Gallardo
+ *
  * @modifiedby Jose A. Onieva
- * La implementación del alumno debe pasar este test experimental
  */
-
-import java.util.*;
 
 public class TestsCorreccion {
 
-	// Comprueba experimentalmente el método resolverTodos
+	// Comprueba experimentalmente el mÃ©todo resolverTodos (posible fallo E/S)
 	public static void testResolverTodos() {
 		EvaluacionExperimental eval = new EvaluacionExperimental ("Test de resolverTodos");
 		eval.realizarCon("tests.txt");		

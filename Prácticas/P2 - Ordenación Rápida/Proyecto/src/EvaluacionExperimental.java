@@ -6,19 +6,18 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-
 /**
+ * Clases para generar y comprobar tests experimentales
+ *
  * @author Pepe Gallardo
+ *
  * @modifiedby Jose A. Onieva
  * @modifiedby Ricardo Conejo
- * clases para generar y comprobar tets experimentales
  */
-
-
 
 public class EvaluacionExperimental {
 
-	String nombreEval; // Nombre para la prueba
+	private String nombreEval; // Nombre para la prueba
 
 	public EvaluacionExperimental(String nombre) {
 		nombreEval = nombre;
@@ -93,7 +92,7 @@ public class EvaluacionExperimental {
 	/**
 	 * @param v      : un vector a ordenar
 	 * @param vOrd   : el vector @v ordenado por el alumno
-	 * @return       : true si la implementaci�n del algoritmo de ordenaci�n pasa la comprobaci�n
+	 * @return       : true si la implementación del algoritmo de ordenación pasa la comprobación
 	 * 				   para la instancia @v
 	 */
 	public static <T extends Comparable<? super T>> boolean comprobacion(T v[], T vOrd[]) {
@@ -106,17 +105,17 @@ public class EvaluacionExperimental {
 	 * @param v      : un vector a ordenar
 	 * @param vOrdOK : la solución correcta
 	 * @param vOrd   : el vector @v ordenado por el alumno
-	 * @return       : true si la implementación del algoritmo de ordenaci�n pasa la comprobaci�n
+	 * @return       : true si la implementación del algoritmo de ordenación pasa la comprobación
 	 * 				   para la instancia @v
 	 */
 	public static <T> boolean comprobacion(T v[], T vOrdOK[], T vOrd[]) {
 		boolean ok = true;
 		
 		if(!Arrays.equals(vOrd,vOrdOK)) {
-			System.out.println("Fallo en la evaluaci�n experimental");
+			System.out.println("Fallo en la evaluación experimental");
 			System.out.println("Con el vector v =   "+Ordenacion.vectorAString(v));
 			System.out.println("Devuelve:           "+Ordenacion.vectorAString(vOrd));
-			System.out.println("Deber�a devolver:   "+Ordenacion.vectorAString(vOrdOK));
+			System.out.println("Debería devolver:   "+Ordenacion.vectorAString(vOrdOK));
 			System.out.println();
 			ok = false;
 		}				
@@ -128,11 +127,11 @@ public class EvaluacionExperimental {
 		boolean ok = true;
 		
 		if(!Arrays.equals(vOrd,vOrdOK)) {
-			System.out.println("Fallo en la evaluaci�n experimental");
-			System.out.println("La invocaci�n OrdenacionRapida.ordena(v,"+l+");");
+			System.out.println("Fallo en la evaluación experimental");
+			System.out.println("La invocación OrdenacionRapida.ordena(v,"+l+");");
 			System.out.println("Con el vector v =   "+Ordenacion.vectorAString(v));
 			System.out.println("Devuelve:           "+Ordenacion.vectorAString(vOrd));
-			System.out.println("Deber�a devolver:   "+Ordenacion.vectorAString(vOrdOK));
+			System.out.println("Debería devolver:   "+Ordenacion.vectorAString(vOrdOK));
 			System.out.println();
 			ok = false;
 		}				
@@ -142,26 +141,26 @@ public class EvaluacionExperimental {
 	
 	/**
 	 * @param fichero : el nombre de un fichero de texto (generado con 
-	 *                  el m�todo @vuelcaEjemplos) con instancias resueltas.
+	 *                  el método @vuelcaEjemplos) con instancias resueltas.
 	 *                  
-	 * Realiza una evaluaci�n experimental del problema, realizando
-	 * la comprobaci�n especificada con los m�todos @comprobaci�n
-	 * y @comprobaci�nParcial para todas las instancias en el fichero.                 
+	 * Realiza una evaluación experimental del problema, realizando
+	 * la comprobación especificada con los métodos @comprobación
+	 * y @comprobaciónParcial para todas las instancias en el fichero.
 	 */
 	public void realizarCon(String fichero){
 		BufferedReader br;
 		boolean ok = true;
 		Integer v[], vOrdOK[], vOrd[];
-		
-		
+
+
 		try {
 			br = new BufferedReader(new FileReader(fichero));
 			
 			while(ok && (v=leeVector(br)) != null) {
 				
-				// Leer soluci�n
+				// Leer solución
 				vOrdOK = leeVector(br);				
-				br.readLine();        // Elimina la separaci�n
+				br.readLine();        // Elimina la separación
 				
 				vOrd = v.clone();
 	
@@ -202,7 +201,7 @@ public class EvaluacionExperimental {
 	public static void main(String args[]) {
 		File fich = new File("tests.txt");
 		if(fich.exists())
-			throw new RuntimeException("\nEl fichero \""+fich.getAbsolutePath()+"\" ya existe. No deber�as modificarlo.");
+			throw new RuntimeException("\nEl fichero \""+fich.getAbsolutePath()+"\" ya existe. No deberías modificarlo.");
 		else {
 			vuelcaEjemplos(fich);
 			System.out.println("Ejemplos generados en el fichero \""+fich.getAbsolutePath()+"\"");
