@@ -39,54 +39,61 @@ public class OrdenacionRapida extends Ordenacion {
 	}
 
 	/**
-	 * Ordena ascendentemente un intervalo del vector.
+	 * Ordena ascendentemente un intervalo de un vector.
 	 *
 	 * @param V		Vector a ordenar
-	 * @param izq 	Valor inicial del intervalo
-	 * @param der 	Valor final del intervalo
+	 * @param inf 	Límite inferior del intervalo
+	 * @param sup 	Límite superior del intervalo
 	 * @param <T> 	Tipo del vector
 	 */
-	public static <T extends Comparable <? super T>> void ordRapidaRec(T[] V, int izq, int der) {
-		if(izq < der) {
-			int med = partir(V, V[izq], izq, der);
+	public static <T extends Comparable <? super T>> void ordRapidaRec(T[] V, int inf, int sup) {
+		// Caso base
+			// Los límites del intervalo son iguales o están invertidos, indicando que
+			// el intervalo está ordenado, por lo que no es necesario hacer nada más
 
-			ordRapidaRec(V, izq, med);
-			ordRapidaRec(V, med+1, der);
+		// Caso intermedio
+		if(inf < sup) {
+			// Se ordena el sub-vector entre los límites inferior y superior
+			// en base al pivote, que será el primer elemento del sub-vector
+			int piv = partir(V, V[inf], inf, sup);
+
+			ordRapidaRec(V, inf, piv);			// Ordenar el sub-vector inferior
+			ordRapidaRec(V, piv+1, sup);	// Ordenar el sub-vector superior
 		}
 	}
 
 	/**
-	 * Divide un intervalo del vector en 2 sub-intervalos de forma
-	 * que todos los elementos inferiores a un pivote son menores
-	 * que él y todos los superiores son mayores o iguales que él.
+	 * Ordena un intervalo de un vector en base a un pivote, de forma
+	 * que todos los elementos menores que él quedan a su izquierda.
 	 *
 	 * @param V 	Vector a dividir
-	 * @param med 	Valor por el que dividir el intervalo (pivote)
-	 * @param izq 	Valor inicial del intervalo
-	 * @param der 	Valor final del intervalo
+	 * @param piv 	Pivote en base al que se ordenará el intervalo
+	 * @param inf 	Límite inferior del intervalo
+	 * @param sup 	Límite superior del intervalo
 	 * @param <T> 	Tipo del vector
 	 *
-	 * @return 	Nuevo pivote
+	 * @return 	La posición siguiente al último elemento menor desplazado
 	 */
-	public static <T extends Comparable <? super T>> int partir(T[] V, T med, int izq, int der) {
-		int i = izq - 1, d = der + 1;
+	public static <T extends Comparable <? super T>> int partir(T[] V, T piv, int inf, int sup) {
+		int izq = inf-1, der = sup+1;	// Se opera una unidad para evitar excepciones de índices
 
-		while (i < d) {
+		while (izq < der) {
+			// Mover el puntero superior a la izquierda, hasta encontrar un valor menor que el pivote
 			do {
-				d--;	// Mover el puntero derecho a la izquierda
+				der--;
+			} while (0 < V[der].compareTo(piv));
 
-			} while (0 < V[d].compareTo(med));
-
+			// Mover el puntero inferior a la derecha, hasta encontrar un valor mayor que el pivote
 			do {
-				i++;	// Mover el puntero izquierdo a la derecha
+				izq++;
+			} while (V[izq].compareTo(piv) < 0);
 
-			} while (V[i].compareTo(med) < 0);
-
-			if (i < d) {
-				Ordenacion.intercambiar(V, i, d);
+			// Si se encontraron valores desordenados, se intercambian (incluso el pivote)
+			if (izq < der) {
+				intercambiar(V, izq, der);
 			}
 		}
 
-		return d;
+		return der;
 	}
 }
