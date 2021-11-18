@@ -57,7 +57,7 @@ public class OrdenacionRapida extends Ordenacion {
 			// en base al pivote, que será el primer elemento del sub-vector
 			int piv = partir(V, V[inf], inf, sup);
 
-			ordRapidaRec(V, inf, piv);			// Ordenar el sub-vector inferior
+			ordRapidaRec(V, inf, piv-1);	// Ordenar el sub-vector inferior
 			ordRapidaRec(V, piv+1, sup);	// Ordenar el sub-vector superior
 		}
 	}
@@ -75,23 +75,28 @@ public class OrdenacionRapida extends Ordenacion {
 	 * @return 	La posición siguiente al último elemento menor desplazado
 	 */
 	public static <T extends Comparable <? super T>> int partir(T[] V, T piv, int inf, int sup) {
-		int izq = inf-1, der = sup+1;	// Se opera una unidad para evitar excepciones de índices
+		int izq = inf, der = sup;	// Los valores originales no deben modificarse
 
 		while (izq < der) {
 			// Mover el puntero superior a la izquierda, hasta encontrar un valor menor que el pivote
-			do {
+			while (0 < V[der].compareTo(piv) && 0 < der) {
 				der--;
-			} while (0 < V[der].compareTo(piv));
+			}
 
-			// Mover el puntero inferior a la derecha, hasta encontrar un valor mayor que el pivote
-			do {
+			// Mover el puntero inferior a la derecha, hasta encontrar un valor mayor/igual que el pivote
+			while (V[izq].compareTo(piv) <= 0 && izq < V.length-1) {
 				izq++;
-			} while (V[izq].compareTo(piv) < 0);
+			}
 
 			// Si se encontraron valores desordenados, se intercambian (incluso el pivote)
 			if (izq < der) {
 				intercambiar(V, izq, der);
 			}
+		}
+
+		// Colocar el pivote en la posición correcta al terminar una ordenación
+		if (0 < piv.compareTo(V[der])) {
+			intercambiar(V, inf, der);		// El pivote se encuentra en la posición 'inf'
 		}
 
 		return der;

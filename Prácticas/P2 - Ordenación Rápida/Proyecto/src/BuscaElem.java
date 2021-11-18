@@ -6,6 +6,7 @@
 // 		Práctica 2: Ordenación rápida
 // 			Apartado (c)
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -47,7 +48,9 @@ public final class BuscaElem {
 	 * @return 	Valor k-ésimo del vector si estuviera ascendentemente ordenado
 	 */
 	public static <T extends Comparable <? super T>> T kesimo(T[] V, int k) {
-		return kesimoRec(V, 0, V.length-1, k);
+		T[] W = Arrays.copyOf(V, V.length);		// Copia del array original para no modificarlo con 'partir()'
+
+		return kesimoRec(W, 0, W.length-1, k);
 	}
 
 	/**
@@ -63,16 +66,21 @@ public final class BuscaElem {
 	 * @return 	Valor k-ésimo del intervalo si estuviera ascendentemente ordenado
 	 */
 	public static <T extends Comparable <? super T>> T kesimoRec(T[] V, int inf, int sup, int k) {
-		while (inf != k || sup != k) {
-			// Se ordena el sub-vector entre los límites inferior y superior
-			// en base al pivote, que será el primer elemento del sub-vector
+		// Caso base
+			// El intervalo es de tamaño 0, por lo que ambos límites del intervalon apuntan a 'k'
+
+		// Caso intermedio
+		if (inf < sup) {
 			int piv = OrdenacionRapida.partir(V, V[inf], inf, sup);
 
-			if (k > piv) {
-				inf = piv+1;	// Debe buscar en el intervalo superior al pivote
+			if (k == piv) {
+				return V[k];	// El valor se ha encontrado al calcular el pivote
+
+			} else if (k < piv) {
+				return kesimoRec(V, inf, piv-1, k);	// Buscar en el intervalo inferior al pivote
 
 			} else {
-				sup = piv;		// Debe buscar en el intervalo inferior al pivote
+				return kesimoRec(V, piv+1, sup, k);	// Buscar en el intervalo superior al pivote
 			}
 		}
 
