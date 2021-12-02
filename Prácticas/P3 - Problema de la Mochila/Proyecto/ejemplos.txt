@@ -1,0 +1,56 @@
+PESOS	   : 9, 6, 5
+VALORES	   : 38, 40, 24
+UNIDADES   : 2, 1, 2	 
+MAXIMO 	   : 15
+SOLUCION FB: 1, 1, 0
+SOLUCION PD: 1, 1, 0
+SOLUCION AV: 0, 1, 1
+
+
+PESOS      : 1, 4, 2, 3, 2
+VALORES    : 1, 3, 3, 1, 4
+UNIDADES   : 1, 2, 2 ,1 ,1
+MAXIMO     : 12
+SOLUCION FB: 1, 1, 2, 0, 1
+SOLUCION PD: 1, 1, 2, 0, 1
+SOLUCION AV: 1, 1, 2, 0, 1
+
+PESOS      : 3, 1, 3, 2, 1
+VALORES    : 2, 1, 4, 4, 4
+UNIDADES   : 2, 3, 2, 1, 2
+MAXIMO     : 8
+SOLUCION FB: 0, 1, 1, 1, 2
+SOLUCION PD: 0, 1, 1, 1, 2
+SOLUCION AV: 0, 1, 1, 1, 2
+
+PESOS      : 4, 3, 3, 4, 3
+VALORES    : 4, 3, 3, 2, 2
+UNIDADES   : 3, 2, 1, 1, 2
+MAXIMO     : 15
+SOLUCION FB: 3, 1, 0, 0, 0
+SOLUCION PD: 3, 1, 0, 0, 0
+SOLUCION AV: 3, 0, 1, 0, 0
+
+PESOS      : 4, 4, 2, 1, 2
+VALORES    : 4, 3, 2, 3, 3
+UNIDADES   : 2, 1, 2, 1, 1
+MAXIMO     : 9
+SOLUCION FB: 1, 0, 1, 1, 1
+SOLUCION PD: 1, 0, 1, 1, 1
+SOLUCION AV: 1, 0, 1, 1, 1
+
+PESOS      : 2, 2, 2, 4, 1
+VALORES    : 1, 1, 2, 3, 4
+UNIDADES   : 0, 3, 1, 1, 2
+MAXIMO     : 8
+SOLUCION FB: 0, 0, 1, 1, 2
+SOLUCION PD: 0, 0, 1, 1, 2
+SOLUCION AV: 0, 0, 1, 1, 2
+
+PESOS      : 3, 2, 3, 1, 3
+VALORES    : 2, 2, 4, 4, 1
+UNIDADES   : 1, 1, 1, 3, 1
+MAXIMO     : 7
+SOLUCION FB: 0, 0, 1, 3, 0
+SOLUCION PD: 0, 0, 1, 3, 0
+SOLUCION AV: 0, 0, 1, 3, 0
