@@ -22,7 +22,7 @@ public class MochilaFB extends Mochila {
 		int[] valores 	= problema.getValores();
 		int[] unidades 	= problema.getUnidades();
 
-		// Calcula todas las combinaciones de pesos de los items posibles y genera sus soluciones asociadas
+		// Calcular las combinaciones de unidades de los ítems y sus soluciones asociadas
 		SolucionMochila[] soluciones = generarSoluciones(combinaciones(unidades), pesos, valores);
 
 		return mejorSolucion(soluciones, problema.pesoMaximo);
@@ -31,80 +31,84 @@ public class MochilaFB extends Mochila {
 	// -----------------------------------------------------------------
 
 	/**
-	 * Calcula todas las combinaciones posibles de los pesos de los items de un problema de la mochila.
+	 * Calcula todas las combinaciones posibles de las unidades de los ítems de un problema de la mochila.
 	 *
-	 * @param pesos		Pesos de los items del problema
-	 * @return 			Lista de combinaciones posibles
+	 * @param unidades		Cantidades de cada ítem del problema
+	 * @return 				Lista de combinaciones posibles
 	 */
-	private static List<int[]> combinaciones(int[] pesos) {
+	private static List<int[]> combinaciones(int[] unidades) {
 		List<int[]> resultado = new ArrayList<>();
 
-		combinaciones(pesos, 0, new int[pesos.length], resultado);
+		combinaciones(unidades, 0, new int[unidades.length], resultado);
 
 		return resultado;
 	}
 
 	/**
-	 * Calcula todas las combinaciones posibles de los pesos de los items de un problema de la mochila.
+	 * Calcula todas las combinaciones posibles de las unidades de los ítems de un problema de la mochila.
 	 *
-	 * @param pesos       	Pesos de los items del problema
-	 * @param pos         	Indice del item actual
-	 * @param combinacion 	Combinación actual
+	 * @param unidades  	Cantidades de cada ítem del problema
+	 * @param pos         	Indice del ítem actual
+	 * @param combinacion 	Combinación de unidades actual
 	 * @param resultado   	Lista de combinaciones posibles
 	 */
-	private static void combinaciones(int[] pesos, int pos, int[] combinacion, List<int[]> resultado) {
-		if (pos == pesos.length) {
+	private static void combinaciones(int[] unidades, int pos, int[] combinacion, List<int[]> resultado) {
+		// Caso base: se ha llegado al final de la lista de ítems
+		if (pos == unidades.length) {
 			resultado.add(combinacion.clone());
 
+		// Caso intermedio: se calcula una combinación de unidades para el ítem actual
 		} else {
-			for (int i = 0; i <= pesos[pos]; i++) {
+			for (int i = 0; i <= unidades[pos]; i++) {
 				combinacion[pos] = i;
-				combinaciones(pesos, pos+1, combinacion, resultado);
+				combinaciones(unidades, pos+1, combinacion, resultado);
 			}
 		}
 	}
 
 	/**
-	 * Genera una lista de soluciones asociadas a una combinación de pesos.
+	 * Genera una lista de soluciones asociadas a una combinación de unidades.
 	 *
-	 * @param unidades		Unidades de cada item
-	 * @param pesos			Pesos de cada item
-	 * @param valores		Valores de cada item
+	 * @param unidades		Unidad de cada ítem
+	 * @param pesos			Peso de cada ítem
+	 * @param valores		Valor de cada ítem
 	 * @return				Lista de soluciones asociadas a una combinación de pesos
 	 */
 	private static SolucionMochila[] generarSoluciones(List<int[]> unidades, int[] pesos, int[] valores) {
 		SolucionMochila[] soluciones = new SolucionMochila[unidades.size()];
 
 		for (int i = 0; i < unidades.size(); i++) {
+			// Datos para la solución actual
+			int[] combinacion = unidades.get(i);
 			int pesoTotal = 0, valorTotal = 0;
 
-			int[] combinacion = unidades.get(i);
-
-			// Calcula el resto de atributos de la solución
+			// Calcular el resto de atributos de la solución
 			for (int j = 0; j < combinacion.length; j++) {
 				pesoTotal  += pesos[j] * combinacion[j];
 				valorTotal += valores[j] * combinacion[j];
 			}
 
-			soluciones[i] = new SolucionMochila(unidades.get(i), pesoTotal, valorTotal);	// No acepta 'int[]
+			// Generar una solución asociada a la combinación de unidades actual
+			soluciones[i] = new SolucionMochila(unidades.get(i), pesoTotal, valorTotal);	// No acepta 'int[]'
 		}
 
 		return soluciones;
 	}
 
 	/**
-	 * Calcula la mejor solución de un conjunto de soluciones.
+	 * Calcula la mejor solución de un conjunto de soluciones: aquella cuyo valor
+	 * es máximo, y el peso de los ítems no supera la capacidad de la mochila.
 	 *
 	 * @param soluciones	Conjunto de soluciones
-	 * @param pesoMaximo	Peso máximo de la mochila
-	 * @return 				Mejor solución
+	 * @param capacidad		Peso máximo de la mochila
+	 * @return 				Mochila de mayor valor, cuyo peso no supera la capacidad
 	 */
-	private static SolucionMochila mejorSolucion(SolucionMochila[] soluciones, int pesoMaximo) {
+	private static SolucionMochila mejorSolucion(SolucionMochila[] soluciones, int capacidad) {
 		SolucionMochila mejorSolucion = soluciones[0];
 
 		for (SolucionMochila solucion : soluciones) {
-			// El valor es máximo y el peso no supera la capacidad de la mochila
-			if (solucion.getSumaPesos() <= pesoMaximo && solucion.getSumaValores() > mejorSolucion.getSumaValores()) {
+			// El valor de los ítems es máximo y el peso no supera la capacidad de la mochila
+			if (solucion.getSumaPesos() <= capacidad && solucion.getSumaValores() > mejorSolucion.getSumaValores()) {
 				mejorSolucion = solucion;
 			}
 		}
