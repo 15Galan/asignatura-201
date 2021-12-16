@@ -1,8 +1,7 @@
 /**
  * Clase que representa una resolución de un problema de la mochila, mediante programación dinámica.
  *
- * @author Antonio J. Galán Herrera
- * @author Github Copilot
+ * @author Antonio J. Galán Herrera, Github Copilot
  */
 public class MochilaPD extends Mochila {
 
@@ -144,7 +143,7 @@ public class MochilaPD extends Mochila {
 
 
 	/**
-	 * Mostrar por pantalla la tabla generada dinámicamente con las cabeceras.
+	 * Mostrar por pantalla la tabla generada dinámicamente y sus cabeceras.
 	 *
 	 * @param tabla			Tabla
 	 * @param pesos			Cabecera de las filas
