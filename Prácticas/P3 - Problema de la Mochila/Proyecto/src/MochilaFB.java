@@ -69,17 +69,17 @@ public class MochilaFB extends Mochila {
 	/**
 	 * Genera una lista de soluciones asociadas a una combinación de unidades.
 	 *
-	 * @param unidades		Unidad de cada ítem
-	 * @param pesos			Peso de cada ítem
-	 * @param valores		Valor de cada ítem
-	 * @return				Lista de soluciones asociadas a una combinación de pesos
+	 * @param combinaciones		Combinaciones de ítems
+	 * @param pesos				Peso de cada ítem
+	 * @param valores			Valor de cada ítem
+	 * @return					Lista de soluciones asociadas a una combinación de pesos
 	 */
-	private static SolucionMochila[] generarSoluciones(List<int[]> unidades, int[] pesos, int[] valores) {
-		SolucionMochila[] soluciones = new SolucionMochila[unidades.size()];
+	private static SolucionMochila[] generarSoluciones(List<int[]> combinaciones, int[] pesos, int[] valores) {
+		SolucionMochila[] soluciones = new SolucionMochila[combinaciones.size()];
 
-		for (int i = 0; i < unidades.size(); i++) {
+		for (int i = 0; i < combinaciones.size(); i++) {
 			// Datos para la solución actual
-			int[] combinacion = unidades.get(i);
+			int[] combinacion = combinaciones.get(i);
 			int pesoTotal = 0, valorTotal = 0;
 
 			// Calcular el resto de atributos de la solución
@@ -89,7 +89,7 @@ public class MochilaFB extends Mochila {
 			}
 
 			// Generar una solución asociada a la combinación de unidades actual
-			soluciones[i] = new SolucionMochila(unidades.get(i), pesoTotal, valorTotal);	// No acepta 'int[]'
+			soluciones[i] = new SolucionMochila(combinacion, pesoTotal, valorTotal);
 		}
 
 		return soluciones;
