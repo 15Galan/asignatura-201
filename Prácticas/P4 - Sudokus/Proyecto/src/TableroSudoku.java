@@ -4,17 +4,18 @@ import java.util.*;
 /**
  * Clase que representa el estado de un tablero de sudoku.
  *
- * @author Antonio J. Galán Herrera, Github Copilot
+ * @author Antonio J. Galán Herrera, Rocío Montalvo Lafuente, Github Copilot
  */
 public class TableroSudoku implements Cloneable {
-	
+
 	// Datos del estado del tablero
 	protected static final int MAXVALOR = 9;
 	protected static final int FILAS	= 9;
 	protected static final int COLUMNAS	= 9;
-							 
+
 	protected static Random r = new Random();
-	
+
+	// Contenido del tablero
 	protected int[][] celdas;
 
 
@@ -42,7 +43,7 @@ public class TableroSudoku implements Cloneable {
 	// -----------------------------------------------------------------
 
 	/**
-	 * Crea un tablero con todas sus celdas a 0.
+	 * Crea un tablero con todas sus celdas vacías (su valor es 0).
 	 */
 	public TableroSudoku() {
 		celdas = new int[FILAS][COLUMNAS];
@@ -76,7 +77,7 @@ public class TableroSudoku implements Cloneable {
 
     	} else {
 			throw new RuntimeException("Construcción de sudoku no válida.");
-		}		
+		}
     }
 
 
@@ -85,25 +86,55 @@ public class TableroSudoku implements Cloneable {
 	// -----------------------------------------------------------------
 
 	/**
-	 * Resuelve un tablero de sudoku.
+	 * Genera todas las soluciones posibles a un tablero de sudoku.
 	 *
 	 * @return	Lista con todos los tableros generados resueltos
 	 */
 	public List<TableroSudoku> resolverTodos() {
 		List<TableroSudoku> soluciones  = new LinkedList<>();
 		resolverTodos(soluciones, 0, 0);
+
 		return soluciones;
 	}
 
 	/**
-	 * Resuelve un tablero de sudoku.
+	 * Resuelve un tablero de sudoku y añade la solución a la lista.
 	 *
-	 * @param soluciones	Lista con todos los tableros generados resueltos
+	 * @param soluciones	Lista con todos los tableros solución generados
 	 * @param fila			Fila de la celda a comprobar
 	 * @param columna		Columna de la celda a comprobar
 	 */
 	protected void resolverTodos(List<TableroSudoku> soluciones, int fila, int columna) {
-		// TODO
+		// Comprueba si se encontró una solución.
+		if (numeroDeLibres() == 0) {
+			// Se ha encontrado una solución y se añade a la lista.
+			soluciones.add(new TableroSudoku(this));
+
+		} else {
+			// No se ha encontrado una solución.
+			int sigFila	= fila;
+			int sigCol 	= (columna + 1) % COLUMNAS;
+
+			// Se comprueba si se ha llegado al final de la fila.
+			if (sigCol == 0) {
+				sigFila++;
+			}
+
+			// Se comprueba si se ha llegado al final del tablero.
+			if (!estaLibre(fila, columna)){
+				resolverTodos(soluciones, sigFila, sigCol);
+
+			} else {
+				// Se intenta introducir un valor en la celda.
+				for (int valor = 1; valor <= MAXVALOR; valor++) {
+					if (sePuedePonerEn(fila, columna, valor)) {
+						celdas[fila][columna] = valor;					// Se añade el valor.
+						resolverTodos(soluciones, sigFila, sigCol);		// Se intenta resolver el resto del tablero.
+						celdas[fila][columna] = 0;						// Se elimina el valor.
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -153,10 +184,16 @@ public class TableroSudoku implements Cloneable {
 	 * @param fila		Fila a comprobar
 	 * @param valor		Valor a comprobar
 	 *
-	 * @return TRUE si el valor ya está en la fila; FALSE en caso contrario.
+	 * @return TRUE si el valor ya está en la fila; FALSE en caso contrario
 	 */
 	protected boolean estaEnFila(int fila, int valor) {
-		// TODO
+		// Recorre toda la fila buscando el valor
+		for (int c = 0; c < COLUMNAS; c++) {
+			if (celdas[fila][c] == valor) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -166,10 +203,16 @@ public class TableroSudoku implements Cloneable {
 	 * @param columna 	Columna a comprobar
 	 * @param valor 	Valor a comprobar
 	 *
-	 * @return TRUE si el valor ya está en la columna; FALSE en caso contrario.
+	 * @return TRUE si el valor ya está en la columna; FALSE en caso contrario
 	 */
 	protected boolean estaEnColumna(int columna, int valor) {
-		// TODO
+		// Recorre toda la columna buscando el valor
+		for (int f = 0; f < FILAS; f++) {
+			if (celdas[f][columna] == valor) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -180,16 +223,27 @@ public class TableroSudoku implements Cloneable {
 	 * @param columna 	Columna de la celda a comprobar
 	 * @param valor 	Valor a comprobar
 	 *
-	 * @return TRUE si el valor ya está en el subtablero; FALSE en caso contrario.
+	 * @return TRUE si el valor ya está en el subtablero; FALSE en caso contrario
 	 */
 	protected boolean estaEnSubtablero(int fila, int columna, int valor) {
-		// TODO
-		return false;		
+		int subFil	= fila/3;
+		int subCol 	= columna/3;
+
+		// Recorre el subtablero buscando el valor.
+		for (int f = 0; f < 3; f++) {
+			for (int c = 0; c < 3; c++) {
+				if (celdas[subFil*3 + f][subCol*3 + c] == valor) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
 	 * Comprueba si es posible colocar un valor en una celda.
-	 * Es decir, si el valor no está en la fila, la columna o el subtablero.
+	 * Es decir, si el valor no está en la fila, la columna ni el subtablero.
 	 *
 	 * @param fila 		Fila de la celda a comprobar
 	 * @param columna 	Columna de la celda a comprobar
@@ -198,8 +252,10 @@ public class TableroSudoku implements Cloneable {
 	 * @return TRUE si se puede colocar el valor en la celda; FALSE en caso contrario.
 	 */
 	protected boolean sePuedePonerEn(int fila, int columna, int valor) {
-		// TODO
-		return false;
+		return estaLibre(fila, columna)
+				&& !(estaEnFila(fila, valor)
+				||   estaEnColumna(columna, valor)
+				||   estaEnSubtablero(fila, columna, valor));
 	}
 
 
@@ -241,7 +297,9 @@ public class TableroSudoku implements Cloneable {
 	@Override
 	public boolean equals(Object objeto) {
 		// Comprobar que el objeto recibido es un TableroSudoku
-		if (objeto instanceof TableroSudoku otro) {
+		if (objeto instanceof TableroSudoku) {
+
+			TableroSudoku otro = (TableroSudoku) objeto;	// Esto no se puede suprimir por cula de SIETTE
 
 			// Comprobar que las filas de ambos tableros son iguales
 			for(int f = 0; f < FILAS; f++) {
