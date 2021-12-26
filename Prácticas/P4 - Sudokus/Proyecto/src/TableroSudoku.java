@@ -9,11 +9,11 @@ import java.util.*;
 public class TableroSudoku implements Cloneable {
 
 	// Datos del estado del tablero
-	protected static final int MAXVALOR = 9;
-	protected static final int FILAS	= 9;
-	protected static final int COLUMNAS	= 9;
-
-	protected static Random r = new Random();
+	protected static final int MAXVALOR = 9;	// Valor máximo que puede tener una celda
+	protected static final int FILAS	= 9;	// Número de filas del tablero
+	protected static final int COLUMNAS	= 9;	// Número de columnas del tablero
+	protected static final int raizF 	= 3;	// Número de filas de un subtablero
+	protected static final int raizC 	= 3;	// Número de columnas de un subtablero
 
 	// Contenido del tablero
 	protected int[][] celdas;
@@ -108,7 +108,7 @@ public class TableroSudoku implements Cloneable {
 		// Comprueba si se encontró una solución.
 		if (numeroDeLibres() == 0) {
 			// Se ha encontrado una solución y se añade a la lista.
-			soluciones.add(new TableroSudoku(this));
+			soluciones.add(new TableroSudoku(this));	// Usa el constructor, guardando una copia de la solución
 
 		} else {
 			// No se ha encontrado una solución.
@@ -226,13 +226,13 @@ public class TableroSudoku implements Cloneable {
 	 * @return TRUE si el valor ya está en el subtablero; FALSE en caso contrario
 	 */
 	protected boolean estaEnSubtablero(int fila, int columna, int valor) {
-		int subFil	= fila/3;
-		int subCol 	= columna/3;
+		int subFil	= fila/raizF;
+		int subCol 	= columna/raizC;
 
 		// Recorre el subtablero buscando el valor.
 		for (int f = 0; f < 3; f++) {
 			for (int c = 0; c < 3; c++) {
-				if (celdas[subFil*3 + f][subCol*3 + c] == valor) {
+				if (celdas[subFil*raizF + f][subCol*raizC + c] == valor) {
 					return true;
 				}
 			}
