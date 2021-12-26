@@ -112,24 +112,24 @@ public class TableroSudoku implements Cloneable {
 
 		} else {
 			// No se ha encontrado una solución.
-			int sigFila	= fila;
+			int sigFil	= fila;
 			int sigCol 	= (columna + 1) % COLUMNAS;
 
 			// Se comprueba si se ha llegado al final de la fila.
 			if (sigCol == 0) {
-				sigFila++;
+				sigFil++;
 			}
 
 			// Se comprueba si se ha llegado al final del tablero.
 			if (!estaLibre(fila, columna)){
-				resolverTodos(soluciones, sigFila, sigCol);
+				resolverTodos(soluciones, sigFil, sigCol);
 
 			} else {
 				// Se intenta introducir un valor en la celda.
 				for (int valor = 1; valor <= MAXVALOR; valor++) {
 					if (sePuedePonerEn(fila, columna, valor)) {
 						celdas[fila][columna] = valor;					// Se añade el valor.
-						resolverTodos(soluciones, sigFila, sigCol);		// Se intenta resolver el resto del tablero.
+						resolverTodos(soluciones, sigFil, sigCol);		// Se intenta resolver el resto del tablero.
 						celdas[fila][columna] = 0;						// Se elimina el valor.
 					}
 				}
