@@ -27,14 +27,23 @@ public class TableroSudoku implements Cloneable {
 	public static void main(String[] args) {
 		String configuracion = ".4....36263.941...5.7.3.....9.3751..3.48.....17..62...716.9..2...96.......312..9.";
 		TableroSudoku sudoku = new TableroSudoku(configuracion);
-		List<TableroSudoku> tableros = sudoku.resolverTodos();
+		List<TableroSudoku> soluciones = sudoku.resolverTodos();
 
-		System.out.println(sudoku);
-		System.out.println(tableros.size());
+		// Usar este código si se quiere debuguear
+		System.out.println("Sudoku planteado:\n" + sudoku.tablero());
+		System.out.println("Se encontraron " + soluciones.size() + " soluciones:");
 
-		for (TableroSudoku tablero : tableros) {
-			System.out.println(tablero);
+		for (TableroSudoku solucion : soluciones) {
+			System.out.println(solucion.tablero());
 		}
+
+		// Usar este código si se quiere corregir usando SIETTE
+//		System.out.println(sudoku);
+//		System.out.println(soluciones.size());
+//
+//		for (TableroSudoku solucion : soluciones) {
+//			System.out.println(solucion);
+//		}
 	}
 
 
@@ -258,9 +267,49 @@ public class TableroSudoku implements Cloneable {
 				||   estaEnSubtablero(fila, columna, valor));
 	}
 
+	/**
+	 * Genera una representación del estado del tablero de forma más visual.
+	 *
+	 * @return	Un tablero en forma de filas, columnas y subtableros
+	 */
+	public String tablero() {
+		StringBuilder tablero = new StringBuilder();
+
+		for (int f = 0; f < FILAS; f++) {
+			for (int c = 0; c < COLUMNAS; c++) {
+
+				// Mostrar el valor de una celda
+				if (celdas[f][c] != 0) {
+					tablero.append(celdas[f][c]);
+
+				} else {
+					tablero.append(" ");	// Opción por defecto de celda vacía
+//					tablero.append("·");	// Opción alternativa de celda vacía
+				}
+
+				tablero.append(" ");	// Espacio entre columnas
+
+				// Separación de vertical de subtableros
+				if (c == 2 || c == 5) {
+					tablero.append("| ");
+				}
+			}
+
+			// Separación horizontal de subtableros
+			if (f == 2 || f == 5) {
+				tablero.append("\n------+-------+------");
+
+			}
+
+			tablero.append("\n");	// Salto de línea entre filas
+		}
+
+		return tablero.toString();
+	}
+
 
 	// -----------------------------------------------------------------
-	// Métodos sobreescritos
+	// Métodos sobrescritos
 	// -----------------------------------------------------------------
 
 	/**
