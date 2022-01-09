@@ -12,8 +12,8 @@ public class Solucion {
      */
     public static void main(String[] args) {
         // Datos del problema
-        SortedSet<Integer> numeros = new TreeSet<>(new ArrayList<>(java.util.Arrays.asList(3,5,6,7)));
-        int maximo      = 15;
+        SortedSet<Integer> numeros = new TreeSet<>(Arrays.asList(1,3,4,6,8,9));
+        int maximo = 14;
 
         // Crear el problema
         Problema problema = new Problema(numeros, maximo);
