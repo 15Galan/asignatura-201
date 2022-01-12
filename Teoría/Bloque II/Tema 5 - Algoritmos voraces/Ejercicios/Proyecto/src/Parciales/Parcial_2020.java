@@ -58,7 +58,7 @@ public class Parcial_2020 {
     Vecino 0:   T0                          -> Es el primero, no espera
     Vecino 1:   T0 + T1                     -> Es el segundo, espera al primero
     Vecino 2:   T0 + T1 + T2                -> Es el tercero, espera al segundo y el primero
-    (. . . )
+    ( . . . )
     Vecino n:   T0 + T1 + T2 + ... + Tn     -> Es el último, espera a todos los anteriores
 
     Al final, se trata de minimizar el tiempo de espera del último vecino, y como se
@@ -89,13 +89,13 @@ public class Parcial_2020 {
     /**
      * Calcula el tiempo de espera total de una solución.
      *
-     * @param T  Vector de tiempos de reparación
+     * @param tiempos   Vector de tiempos de reparación
      */
-    public static int calcularTiempo(int[] solucion) {
+    public static int calcularTiempo(int[] tiempos) {
         int espera = 0;
 
         for (int i = 0; i < n; i++) {
-            espera += solucion[i] * (n-i);
+            espera += tiempos[i] * (n-i);
         }
 
         return espera;
@@ -109,9 +109,9 @@ public class Parcial_2020 {
     /**
      * Ordena los elementos de un vector de menor a mayor.
      *
-     * @param T  Vector de tiempos
+     * @param vector    Vector de tiempos
      */
-    private static void ordenar(int[] T) {
-        Arrays.sort(T);
+    private static void ordenar(int[] vector) {
+        Arrays.sort(vector);
     }
 }
