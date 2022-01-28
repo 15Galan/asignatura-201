@@ -15,7 +15,7 @@ import java.util.Arrays;
  *
  * Determinar cómo hay que jugar para maximizar la ganancia.
  */
-public class Ejercicio_05 {
+public class Ejercicio_04 {
 
     // Datos del problema
     private static int[] r;     // Vector de premios semanales
