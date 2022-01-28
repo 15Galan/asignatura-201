@@ -27,7 +27,7 @@ public class Ejercicio_03 {
     /**
      * Resuelve el problema descrito para un ejemplo concreto.
      *
-     * @param args
+     * @param args  Argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         // Datos del problema
