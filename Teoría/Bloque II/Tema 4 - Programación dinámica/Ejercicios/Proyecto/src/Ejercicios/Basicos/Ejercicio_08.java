@@ -2,6 +2,17 @@ package Ejercicios.Basicos;
 
 import java.util.Arrays;
 
+
+
+/**
+ * Queremos jugar a un juego en el que se tiene un tablero 'n x n' donde en cada casilla
+ * aparece un número natural.
+ * El juego consiste en elegir una casilla de la última fila 'n' y ascender mediante los
+ * movimientos {↖, ↑, ↗} hasta llegar a una casilla de la primera fila.
+ * La cantidad ganada será la suma de los valores de las casillas recorridas.
+ *
+ * Determinar cómo hay que jugar para maximizar los puntos.
+ */
 public class Ejercicio_08 {
 
     // Datos del problema
@@ -27,6 +38,7 @@ public class Ejercicio_08 {
         };
         n = t.length;
 
+
         // Mostrar datos del problema
         System.out.println("Se quiere jugar a un juego que consiste en recorrer el siguiente tablero,");
         System.out.println("de abajo a arriba y solo en diagonal, de forma que al final se haya pasado");
@@ -34,10 +46,12 @@ public class Ejercicio_08 {
 
         System.out.println(tablero(t) + "\n");
 
+
         // Resolución
         rellenarTablaA();
 
         System.out.println("El camino de mayor puntuación es: " + Arrays.toString(mejorCamino()));
+
 
         // Información adicional
         System.out.println("\n--- Información adicional ---");
