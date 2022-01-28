@@ -30,7 +30,7 @@ public class Parcial_2020 {
     /**
      * Resuelve el problema descrito para un ejemplo concreto.
      *
-     * @param args
+     * @param args  Argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         // Datos del problema
@@ -163,16 +163,34 @@ public class Parcial_2020 {
      *
      * @return  Vector con la cantidad 'm' de euros a invertir en la entidad 'i'
      */
-    private static double[] eurosPorBanco() {
+    private static int[] eurosPorBanco() {
         double[] distribucion = new double[n];  // Vector con la distribución de euros
+        int[] dinero = new int[n];              // Vector con la cantidad de euros a invertir en cada banco
+
         int resto = M-1;                        // Se resta porque 'M' son las columnas
 
+        // Calcular el interés obtenido en cada entidad para la cantidad 'm' de euros
         for (int i = n-1; i >= 0; i--) {
             distribucion[i] = A[i][resto];
             resto -= A[i][resto];
         }
 
-        return distribucion;
+        int ingresado = 0;  // Cantidad de euros ingresados en total
+
+        // Calcular la cantidad de 'm' euros obtenida en cada entidad
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < M; j++) {
+                // Si el interés está en la distribución, se han metido 'm' euros en la entidad 'i'
+                if (A[i][j] == distribucion[i]) {
+                    int m = j - ingresado;          // 'j' euros del total menos los ya ingresados
+
+                    dinero[i] = m;
+                    ingresado = j;                  // Se actualiza el total de ingresos
+                }
+            }
+        }
+
+        return dinero;
     }
 
     /**
