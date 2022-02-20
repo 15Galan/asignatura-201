@@ -68,8 +68,8 @@ public class Parcial_2020 {
 
 
         // Mostrar los datos del problema
-        System.out.println("Se quiere repartir " + (M-1) + " euros entre " + n + " entidades,");
-        System.out.println("cuyos intereses siguen esta proporción (n\\M):\n" + mostrarTabla(interes));
+        System.out.println("Se quiere repartir " + (M-1) + " euros entre " + n + " entidades.");
+        System.out.println("Los intereses siguen esta proporción (n\\M):\n\n" + mostrarTabla(interes));
 
 
         // Resolución
@@ -206,18 +206,14 @@ public class Parcial_2020 {
             sb.append(cabecera).append("\t\t");
         }
 
-        sb.append("\n");    // Separación de cabeceras y datos
-
         // Filas
         for (int fil = 0; fil < tabla.length; fil++) {
-            sb.append(fil+1).append("\t");
+            sb.append("\n").append(fil+1).append("\t");
 
             for (int col = 0; col < tabla[0].length; col++) {
                 DecimalFormat df = new DecimalFormat("#.##");   // Redondear 2 decimales
                 sb.append(df.format(tabla[fil][col])).append("\t\t");   // como máximo (lo evita)
             }
-
-            sb.append("\n");
         }
 
         return sb.toString();
