@@ -59,7 +59,7 @@ public class Subsecuencia {
      */
     public static void rellenarTablaA() {
         // Inicializar la tabla
-        int n = X.length(), m = Y.length();     // +1 porque se contemplan subcadenas vacías
+        int n = X.length() + 1, m = Y.length() + 1;     // +1 porque se contemplan subcadenas vacías
         A = new int[n][m];
 
         // Aplicar la ecuación de Bellman
@@ -148,17 +148,17 @@ public class Subsecuencia {
         sb.append("\t").append("\t").append("\t");
 
         for (int j = 0; j < Y.length(); j++) {
-            sb.append(X.charAt(j)).append("\t");    // Moléculas de Y
+            sb.append(Y.charAt(j)).append("\t");    // Moléculas de Y
         }
 
         sb.append("\n").append("\t").append("\t");
 
-        for (int cabecera = 0; cabecera < tabla[0].length; cabecera++) {
-            sb.append(cabecera).append("\t");   // Tamaño de subcadenas de Y
+        for (int cabecera = 0; cabecera <= Y.length(); cabecera++) {
+            sb.append(cabecera).append("\t");       // Tamaño de subcadenas de Y
         }
 
         // Filas
-        for (int fil = 0; fil < tabla.length; fil++) {
+        for (int fil = 0; fil <= X.length(); fil++) {
 
             sb.append("\n");
 
@@ -168,9 +168,9 @@ public class Subsecuencia {
                 sb.append(X.charAt(fil-1)).append("\t");   // Moléculas de X
             }
 
-            sb.append(fil).append("\t");    // Tamaño de subcadenas de X
+            sb.append(fil).append("\t");                    // Tamaño de subcadenas de X
 
-            for (int col = 0; col < tabla[0].length; col++) {
+            for (int col = 0; col <= Y.length(); col++) {
                 sb.append(tabla[fil][col]).append("\t");
             }
         }
