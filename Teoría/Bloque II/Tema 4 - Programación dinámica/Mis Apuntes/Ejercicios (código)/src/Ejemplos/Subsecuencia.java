@@ -41,7 +41,8 @@ public class Subsecuencia {
         // Resolución
         rellenarTablaA();
 
-        System.out.println("\nSCL encontrada: " + encontrarSCL(A) + ".");
+        System.out.println("\nSolución:  " + solucion(A));
+        System.out.println("\tValor: " + valor(A));
 
 
         // Información adicional
@@ -97,40 +98,53 @@ public class Subsecuencia {
     }
 
     /**
-     * Devuelve la subsecuencia común más larga entre 2 cadenas de ADN.
+     * Devuelve la SCL entre 2 cadenas de ADN.
      *
      * @param A     Tabla de la ecuación de Bellman
      *
      * @return      Subsecuencia común más larga
      */
-    private static String encontrarSCL(int[][] A) {
-        // Inicializar los índices de la SCL
+    private static String solucion(int[][] A) {
+        // Inicializar los índices
         int i = X.length(), j = Y.length();
 
-        StringBuilder scl = new StringBuilder();
+        // Inicializar la solución
+        StringBuilder SCL = new StringBuilder();
 
         // Recorrer la tabla 'A' hacia atrás
         while (i > 0 && j > 0) {
             // Las moléculas coinciden
             if (X.charAt(i-1) == Y.charAt(j-1)) {
-                i--; j--;   // Disminuir los índices de la SCL
-
-                // Añadir la molécula a la SCL
-                scl.append(X.charAt(i));
+                SCL.append(X.charAt(i-1));          // Añadir la molécula a la SCL
+                i--;
+                j--;                                // Disminuir los índices
 
             // Las moléculas no coinciden
             } else {
                 // Se comprueba hacia dónde se mueve el recorrido
                 if (A[i-1][j] >= A[i][j]) {
-                    i--;	// Disminuir el índice de la SCL
+                    i--;
+
                 } else {
-                    j--;	// Disminuir el índice de la SCL
+                    j--;
                 }
             }
         }
 
-        // Devolver la subsecuencia común más larga
-        return scl.reverse().toString();
+        // Devolver la solución
+        return SCL.reverse().toString();    // Se han añadido al revés
+    }
+
+    /**
+     * Indica el valor óptimo de la solución
+     * a partir de la tabla generada.
+     *
+     * @param A     Tabla de la ecuación de Bellman
+     *
+     * @return      Valor óptimo
+     */
+    private static int valor(int[][] A) {
+        return A[X.length()][Y.length()];   // El valor óptimo está en la última celda
     }
 
 
@@ -145,7 +159,7 @@ public class Subsecuencia {
         StringBuilder sb = new StringBuilder();
 
         // Cabeceras
-        sb.append("\t").append("\t").append("\t");
+        sb.append("\t").append("\t").append("∅").append("\t");
 
         for (int j = 0; j < Y.length(); j++) {
             sb.append(Y.charAt(j)).append("\t");    // Moléculas de Y
@@ -159,17 +173,19 @@ public class Subsecuencia {
 
         // Filas
         for (int fil = 0; fil <= X.length(); fil++) {
-
             sb.append("\n");
 
+            // Cabecera de la fila
             if (fil == 0) {
-                sb.append("\t");    // Espacio en blanco cuando la subcadena de X es vacía
+                sb.append("∅");                 // Subcadena X vacía
+
             } else {
-                sb.append(X.charAt(fil-1)).append("\t");   // Moléculas de X
+                sb.append(X.charAt(fil-1));     // Moléculas de X
             }
 
-            sb.append(fil).append("\t");                    // Tamaño de subcadenas de X
+            sb.append("\t").append(fil).append("\t");   // Tamaño de subcadenas de X
 
+            // Valores de las columnas
             for (int col = 0; col <= Y.length(); col++) {
                 sb.append(tabla[fil][col]).append("\t");
             }

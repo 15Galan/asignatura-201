@@ -1,7 +1,10 @@
 package Ejemplos;
 
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+
 
 /**
  * PROBLEMA:
@@ -43,20 +46,21 @@ public class Mochila_01 {
 
 
         // Mostrar los datos del problema
-        System.out.println("Pesos:\t\t" + Arrays.toString(P));
-        System.out.println("Valores:\t" + Arrays.toString(V));
-        System.out.println("Capacidad:\t" + C);
+        System.out.println("Pesos:     " + Arrays.toString(P));
+        System.out.println("Valores:   " + Arrays.toString(V));
+        System.out.println("Capacidad: " + C);
 
 
         // Resolución
         rellenarTablaA();
 
-        System.out.println("\nSolución: " + solucion(A) + "\t (valor: " + valor(A) + ")");
+        System.out.println("\nSolución:  " + solucion(A));
+        System.out.println("\tValor: " + valor(A));
 
 
         // Información adicional
-        // System.out.println("\n--- Información adicional ---");
-        // System.out.println("\nTabla A:\n" + mostrarTabla(A));
+        System.out.println("\n--- Información adicional ---");
+        System.out.println("\nTabla A:\n" + mostrarTabla(A));
     }
 
 
@@ -69,7 +73,7 @@ public class Mochila_01 {
      */
     public static void rellenarTablaA() {
         // Inicializar la tabla
-        int n = P.length + 1, c = C + 1;    // +1 porque contemplan items y mochila vacíos
+        int n = P.length+1, c = C+1;    // +1 porque contemplan items y mochila vacíos
         A = new int[n][c];
 
         // Aplicar la ecuación de Bellman
@@ -112,34 +116,34 @@ public class Mochila_01 {
      *
      * @return      Solución óptima
      */
-    private static String solucion(int[][] A) {
+    private static List<Integer> solucion(int[][] A) {
         // Inicializar los índices
         int i = P.length, c = C;
 
         // Inicializar la solución
-        StringBuilder sb = new StringBuilder();
+        List<Integer> S = new ArrayList<>();
 
         // Recorrer la tabla generando la solución óptima
         while (i > 0 && c > 0) {
             // Si el valor acumulado es mejor que el anterior
             if (A[i][c] != A[i-1][c]) {
-                sb.append(i);           // Se añade el item a la solución
+                S.add(i);               // Se añade el item a la solución
                 c -= P[i-1];            // Se resta el peso del item a la mochila
-                                            // ('i-1' porque hay 'n+1' filas en la tabla)
-                if (0 < c) {
-                    sb.append(" ,");    // Se añade ',' si no terminó la solución
-                }
             }
 
-            i--;
+            i--;                        // Se descarta el item
         }
 
+        // Ordenar la solución
+        S.sort(Integer::compareTo);     // Porque se añadieron en orden inverso
+
         // Devolver la solución óptima
-        return "{" + sb.reverse() + "}";
+        return S;
     }
 
     /**
-     * Genera el valor óptimo a partir de la tabla generada.
+     * Indica el valor óptimo de la solución
+     * a partir de la tabla generada.
      *
      * @param A     Tabla de la ecuación de Bellman
      *
@@ -148,6 +152,11 @@ public class Mochila_01 {
     private static int valor(int[][] A) {
         return A[P.length][C];              // El valor óptimo está en la última celda
     }
+
+
+    // ------------------------------------------------------------------------
+    // Funciones auxiliares
+    // ------------------------------------------------------------------------
 
     /**
      * Genera una representación de una tabla con sus índices como cabeceras.
@@ -164,8 +173,18 @@ public class Mochila_01 {
 
         // Filas
         for (int fil = 0; fil <= P.length; fil++) {
-            sb.append("\n").append(fil).append("\t");
+            sb.append("\n");
 
+            // Cabecera de la fila
+            if (fil == 0) {
+                sb.append("∅");     // Conjunto de items vacío
+            } else {
+                sb.append(fil);     // Índice del item
+            }
+
+            sb.append("\t");
+
+            // Valores de las columnas
             for (int col = 0; col <= C; col++) {
                 sb.append(tabla[fil][col]).append("\t");
             }
