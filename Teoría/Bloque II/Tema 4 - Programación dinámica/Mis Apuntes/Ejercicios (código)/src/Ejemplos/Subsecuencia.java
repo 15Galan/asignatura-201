@@ -10,8 +10,10 @@ package Ejemplos;
  * - X = ACCGGTCGAGTGCGCGGAAGCCGGCCGAA
  * - Y = GTCGTTCGGAATGCCGTTGCTCTGTAAA
  *
- *      SOLUCIÓN: GTCGTCGGAAGCCGGCCGAA
+ *      SOLUCIÓN: GTCGTCGGAAGCCGGCCGAA.
  *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Subsecuencia {
 

@@ -21,6 +21,8 @@ import java.util.List;
  *
  *      SOLUCIÓN: {1, 2, 4} cuyo valor es 37.
  *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Mochila_01 {
 

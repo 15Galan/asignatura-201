@@ -17,6 +17,9 @@ import java.util.Arrays;
  * Pagar 11 unidades con monedas que valen 1, 4 o 6 unidades.
  *
  *      SOLUCIÓN: 3 monedas (una de 6 u, otra de 4 u y otra de 1 u).
+ *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Monedas {
 

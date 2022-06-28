@@ -10,6 +10,9 @@ package Ejemplos;
  * Calcular el valor en la quinta posición de la serie de Fibonacci.
  *
  *      SOLUCIÓN: 5.
+ *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Fibonacci {
 
