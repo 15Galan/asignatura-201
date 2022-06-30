@@ -12,11 +12,14 @@ import java.util.Arrays;
  * La cantidad ganada será la suma de los valores de las casillas recorridas.
  *
  * Determinar cómo hay que jugar para maximizar los puntos.
+ *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Ejercicio_08 {
 
     // Datos del problema
-    private static int[][] t;   // Tablero de juego
+    private static int[][] T;   // Tablero de juego
     private static int n;       // Longitud del tablero (n x n)
 
     // Datos del desarrollo
@@ -30,27 +33,25 @@ public class Ejercicio_08 {
      */
     public static void main(String[] args) {
         // Datos del problema
-        t = new int[][] {
-                {1, 4, 8,  3},
-                {1, 5, 2, 10},
-                {8, 2, 7,  9},
-                {3, 5, 2,  1}
+        T = new int[][] {
+            {1, 4, 8,  3},
+            {1, 5, 2, 10},
+            {8, 2, 7,  9},
+            {3, 5, 2,  1}
         };
-        n = t.length;
 
 
         // Mostrar datos del problema
-        System.out.println("Se quiere jugar a un juego que consiste en recorrer el siguiente tablero,");
-        System.out.println("de abajo a arriba y solo en diagonal, de forma que al final se haya pasado");
-        System.out.println("por un camino con el mayor peso posible.\n");
-
-        System.out.println(tablero(t) + "\n");
+        System.out.println("Tablero:\n" + mostrarTablero(T));
 
 
         // Resolución
         rellenarTablaA();
 
-        System.out.println("El camino de mayor puntuación es: " + Arrays.toString(mejorCamino()));
+        int[] S = solucion(A);
+
+        System.out.println("\nSolución: " + Arrays.toString(S));
+        System.out.println("\tValor: " + valor(S));
 
 
         // Información adicional
@@ -68,10 +69,11 @@ public class Ejercicio_08 {
      */
     private static void rellenarTablaA() {
         // Inicializar la tabla
+        n = T.length;
         A = new int[n][n];
 
         // Aplicar la ecuación de Bellman
-        for (int i = n-1; i >= 0; i--) {    // Esta vez se empieza de abajo a arriba
+        for (int i = n-1; i >= 0; i--) {    // Esta vez, de abajo a arriba
             for (int j = 0; j < n; j++) {
                 bellman(i, j);
             }
@@ -82,8 +84,10 @@ public class Ejercicio_08 {
      * Aplica la siguiente ecuación de Bellman para una fila y columna
      * concretas de la tabla 'A'.
      *
-     * A(i,j) = t(i,j)                                      si  i = n-1
-     * A(i,j) = MAX[j-1 <= k <= j+1](A(i+1,k)) + t(i,j)     si  i < n-1
+     * A(i,j) = t(i,j)                                      si  i = n
+     * A(i,j) = MAX[j <= k <= j+1][(A(i+1,k)) + t(i,j)]     si  i > 1 && j = 1
+     * A(i,j) = MAX[j-1 <= k <= j][(A(i+1,k)) + t(i,j)]     si  i > 1 && j = n
+     * A(i,j) = MAX[j-1 <= k <= j+1][(A(i+1,k)) + t(i,j)]   si  i > 1
      *
      * @param i     Fila de la tabla 'A'
      * @param j     Columna de la tabla 'A'
@@ -91,16 +95,16 @@ public class Ejercicio_08 {
     public static void bellman(int i, int j) {
         // Caso base
         if (i == n-1) {
-            A[i][j] = t[i][j];
+            A[i][j] = T[i][j];
 
-        // Caso "recursivo" (no se usa 'bellman()', sino 'A[][]')
+            // Caso iterativo
         } else {
             int max = 0;
 
             for (int k = j-1; k <= j+1; k++) {
                 // Si 'k' está dentro del tablero
                 if (0 <= k && k < n) {
-                    int aux = A[i+1][k] + t[i][j];
+                    int aux = A[i+1][k] + T[i][j];
 
                     if (aux > max) {
                         max = aux;
@@ -112,31 +116,39 @@ public class Ejercicio_08 {
         }
     }
 
+    /**
+     * Genera la solución óptima a partir de la tabla generada.
+     *
+     * @param A     Tabla de la ecuación de Bellman
+     *
+     * @return      Solución óptima
+     */
+    public static int[] solucion(int[][] A) {
+        // Inicializar los índices
+        int c = 0;                      // Columna del tablero
 
-    public static int[] mejorCamino() {
-        int[] solucion = new int[n];    // Vector solución
-        int col = 0;                    // Columna del valor máximo anterior
-
-        // Caso base: el máximo de la primera fila (fin del camino)
+        // Guardar la columna del máximo valor posible
         for (int j = 0; j < n; j++) {
-            // Guardar el valor máximo de los posibles
-            if (A[0][col] < A[0][j]) {
-                solucion[n-1] = t[0][j];
-                col = j;                    // Se actualiza la columna del valor máximo anterior
-            }
+            if (A[0][c] < A[0][j]) {
+                c = j;                  // Se actualiza la columna
+            }                           // del valor máximo anterior
         }
 
-        // Caso intermedio: resto de filas (camino desde el final hasta el inicio
+        // Inicializar la solución
+        int[] solucion = new int[n];
+        solucion[n-1] = T[0][c];        // Casilla mejor puntuada
+
+        // Recorrer la tabla A
         for (int i = 1; i < n; i++) {
-            int j = col;
+            int j = c;
 
             for (int k = j-1; k <= j+1; k++) {
-                // Si 'k' está dentro del tablero
+                // Si 'k' está en del tablero (las 3 sentencias de la E.B)
                 if (0 <= k && k < n) {
                     // Guardar el valor máximo de los posibles
                     if (A[i][j] < A[i][k]) {
-                        solucion[(n-1)-i] = t[i][k];
-                        col = k;                        // Se actualiza la columna del valor máximo anterior
+                        solucion[(n - 1) - i] = T[i][k];
+                        c = k;
                     }
                 }
             }
@@ -145,27 +157,46 @@ public class Ejercicio_08 {
         return solucion;
     }
 
+    /**
+     * Calcula el valor de una solución.
+     *
+     * @param S     Solución
+     *
+     * @return      Valor
+     */
+    private static int valor(int[] S) {
+        int valor = 0;
+
+        for (int s : S) {
+            valor += s;
+        }
+
+        return valor;
+    }
+
 
     // ------------------------------------------------------------------------
     // Funciones auxiliares
     // ------------------------------------------------------------------------
 
     /**
-     * Genera una representación de una matriz.
+     * Genera una representación de un tablero.
      *
-     * @param tabla    Matriz a mostrar
+     * @param tablero    Tablero a mostrar
      *
-     * @return Matriz como una tabla
+     * @return Tablero como una tabla
      */
-    public static String tablero(int[][] tabla) {
+    public static String mostrarTablero(int[][] tablero) {
         StringBuilder sb = new StringBuilder();
 
-        for (int[] f : tabla) {
-            for (int c = 0; c < tabla.length; c++) {
-                sb.append(String.format("%3d", f[c]));
+        // Recorrer el tablero
+        for (int[] f : tablero) {
+            // Recorrer la fila
+            for (int i : f) {
+                sb.append(String.format("%3d", i));
             }
 
-            if (f != tabla[tabla.length - 1]) {
+            if (f != tablero[tablero.length-1]) {
                 sb.append("\n");
             }
         }
@@ -182,15 +213,15 @@ public class Ejercicio_08 {
         // Cabeceras
         sb.append("\t");
 
-        for (int cabecera = 0; cabecera < tabla[0].length; cabecera++) {
+        for (int cabecera = 1; cabecera <= n; cabecera++) {
             sb.append(cabecera).append("\t");
         }
 
         // Filas
-        for (int fil = 0; fil < tabla.length; fil++) {
-            sb.append("\n").append(fil+1).append("\t");
+        for (int fil = 0; fil < n; fil++) {
+            sb.append("\n").append(n-fil).append("\t");
 
-            for (int col = 0; col < tabla[0].length; col++) {
+            for (int col = 0; col < n; col++) {
                 sb.append(tabla[fil][col]).append("\t");
             }
         }
