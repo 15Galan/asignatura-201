@@ -5,15 +5,19 @@ import java.util.Arrays;
 
 
 /**
- * Un desconocido (que dice ser familiar suyo, aunque no se parece en nada a ti) se presenta
- * ante ti montado en un DeLorean y te da un anuario con todos los resultados de la quiniela
- * del próximo año.
- * Sabemos también el premio 'r_i' que habrá en la semana 'i' (0 <= i <= 'n') si se juega la
- * quiniela ganadora en dicha semana.
- * Para no levantar sospechas, decidimos que no podremos ganar más de una vez cada 'K' semanas
- * consecutivas (0 < 'K'); es decir, debe haber al menos 'K-1' semanas entre cada premio.
+ * Un desconocido (que dice ser familiar suyo, aunque no se parece en nada a ti)
+ * se presenta ante ti montado en un DeLorean y te da un anuario con todos los
+ * resultados de la quiniela del próximo año.
+ * Sabemos también el premio 'r_i' que habrá en la semana 'i' (0 <= i <= 'n') si
+ * se juega la quiniela ganadora en dicha semana.
+ * Para no levantar sospechas, decidimos que no podremos ganar más de una vez
+ * cada 'K' semanas consecutivas (0 < 'K'); es decir, debe haber al menos 'K-1'
+ * semanas entre cada premio.
  *
  * Determinar cómo hay que jugar para maximizar la ganancia.
+ *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Ejercicio_04 {
 
@@ -43,19 +47,15 @@ public class Ejercicio_04 {
 
 
         // Mostrar los datos del problema
-        System.out.println("Recibes un anuario que contiene los resultados de las quinielas de " + n + " semanas.");
-        System.out.println("Quieres usarlo para hacer trampas, pero para no levantar sospechas, decides no ganar");
-        System.out.println("ningún premio hasta que hayan pasado " + K + " semanas del último que ganaste.");
-        System.out.println("La cantidad en miles de euros de los premios del anuario es la siguiente:\n");
-
-        System.out.println(Arrays.toString(r));
+        System.out.println("Premios semanales: " + Arrays.toString(r));
+        System.out.println("Margen de sospecha: " + K);
 
 
         // Resolución
         rellenarTablaA();
 
-        System.out.println("\nEl máximo beneficio que puede obtenerse es " + maximoBeneficio() + " miles de euros.");
-        System.out.println("El reparto de premios para dicho beneficio es " + Arrays.toString(premiosGanados()) + ".");
+        System.out.println("\nSolución:  " + Arrays.toString(solucion()));
+        System.out.println("\tValor: " + valor());
 
 
         // Información adicional
@@ -107,7 +107,7 @@ public class Ejercicio_04 {
                 A[i][j] = max;
             }
 
-        // Caso "recursivo" (no se usa 'bellman()', sino 'A[][]')
+        // Caso iterativo
         } else {
             int max = 0;
 
@@ -123,6 +123,30 @@ public class Ejercicio_04 {
         }
     }
 
+    /**
+     * Calcula qué premios deben ganarse usando el anuario.
+     *
+     * @return  Vector con los premios a los que apuntar, en orden
+     */
+    private static int[] solucion() {
+        int[] S = new int[p];           // Vector con la distribución de premios
+        int beneficio = valor();        // Beneficio máximo
+
+        // Recorrer la tabla 'A' desde la solución (última fila) hasta el inicio
+        for (int i = S.length-1; i >= 0; i--) {
+            int k = 0;
+
+            // Encontrar la semana en la que se gana el beneficio del premio 'i'
+            while (A[i][k] < beneficio) {
+                k++;
+            }
+
+            S[i] = r[k];        // Se añade el premio a la solución
+            beneficio -= r[k];  // Se elimina el valor del premio añadido del beneficio total
+        }
+
+        return S;
+    }
 
     /**
      * Calcula el máximo beneficio que se puede obtener
@@ -132,33 +156,8 @@ public class Ejercicio_04 {
      *
      * @return  Máximo beneficio
      */
-    private static int maximoBeneficio() {
+    private static int valor() {
         return A[p-1][n-1];
-    }
-
-    /**
-     * Calcula qué premios deben ganarse usando el anuario.
-     *
-     * @return  Vector con los premios a los que apuntar, en orden
-     */
-    private static int[] premiosGanados() {
-        int[] premios = new int[p];             // Vector con la distribución de premios
-        int beneficio = maximoBeneficio();      // Beneficio máximo
-
-        // Recorrer la tabla 'A' desde la solución (última fila) hasta el inicio
-        for (int i = premios.length-1; i >= 0; i--) {
-            int k = 0;
-
-            // Encontrar la semana en la que se gana el beneficio del premio 'i'
-            while (A[i][k] < beneficio) {
-                k++;
-            }
-
-            premios[i] = r[k];  // Se añade el premio a la solución
-            beneficio -= r[k];  // Se elimina el valor del premio añadido del beneficio total
-        }
-
-        return premios;
     }
 
 
