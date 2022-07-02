@@ -5,23 +5,26 @@ import java.util.Arrays;
 
 
 /**
- * Un estudiante aventajado intenta organizar sus 'H' horas de estudio para
+ * Un estudiante aventajado intenta organizar sus 'h' horas de estudio para
  * maximizar la nota acumulada que obtendrá en las 'n' asignaturas del cuatrimestre.
  * Para ello, analiza los temarios y obtiene una estimación 'c(i,j)' de la nota
  * numérica que obtendría en la asignatura 'i' dedicándole 'j' horas de estudio.
  *
  * Su objetivo ahora es determinar cuántas horas debe dedicar a cada asignatura.
+ *
+ *
+ * @author Antonio J. Galán Herrera
  */
 public class Ejercicio_03 {
 
     // Datos del problema
-    private static int[][] c;   // Tabla que representa las notas estimadas
-    private static int H;       // Número de horas de estudio
+    private static int[][] C;   // Tabla de notas estimadas
+    private static int h;       // Número de horas de estudio
     private static int n;       // Número de asignaturas
 
     // Datos del desarrollo
     private static int[][] A;   // Tabla utilizada en el proceso de programación dinámica
-    private static int[][] B;   // Tabla utilizada para almacenar las horas dedicadas óptimas
+    private static int[][] aux;   // Tabla utilizada para almacenar las horas dedicadas óptimas
 
 
     /**
@@ -31,39 +34,40 @@ public class Ejercicio_03 {
      */
     public static void main(String[] args) {
         // Datos del problema
-        c = new int[][] {   // Ejemplo del profesor Julio
-                {0, 3, 4, 6,  8,  9, 10, 10},   // Asignatura 1
-                {1, 5, 6, 8, 10, 10, 10, 10},   // Asignatura 2
-                {0, 4, 4, 5,  6,  7,  9, 10},   // Asignatura 3
-                {0, 2, 4, 7,  7,  8,  8,  9}    // Asignatura 4
+        C = new int[][] {                   // Ejemplo del profesor Julio
+            {0, 3, 4, 6,  8,  9, 10, 10},   // Asignatura 1
+            {1, 5, 6, 8, 10, 10, 10, 10},   // Asignatura 2
+            {0, 4, 4, 5,  6,  7,  9, 10},   // Asignatura 3
+            {0, 2, 4, 7,  7,  8,  8,  9}    // Asignatura 4
         };
 
-//        c = new int[][] {   // Ejemplo de Diego
-//                {0, 1, 3, 5, 8, 10, 10},    // Asignatura 1 (A.D.A)
-//                {2, 3, 4, 6, 7,  8,  9},    // Asignatura 2 (Cálculo)
-//                {0, 2, 5, 7, 8,  9, 10},    // Asignatura 3 (Discreta)
-//        };
+        // C = new int[][] {              // Ejemplo de Diego
+        //    {0, 1, 3, 5, 8, 10, 10},    // Asignatura 1 (A.D.A)
+        //    {2, 3, 4, 6, 7,  8,  9},    // Asignatura 2 (Cálculo)
+        //    {0, 2, 5, 7, 8,  9, 10},    // Asignatura 3 (Discreta)
+        // };
 
-        H = c[0].length;    // Número de columnas
-        n = c.length;       // Número de filas
+        h = C[0].length;    // Número de columnas
+        n = C.length;       // Número de filas
 
 
         // Mostrar los datos del problema
-        System.out.println("Se quiere repartir " + (H-1) + " horas para estudiar " + n + " asignaturas,");
-        System.out.println("donde según las horas estudiadas, las notas variarían como:\n\n" + mostrarTabla(c));
+        System.out.println("Asignaturas: " + n);
+        System.out.println("Horas de estudio: " + h);
+        System.out.println("Notas estimadas:\n" + mostrarTabla(C));
 
 
         // Resolución
         rellenarTablaA();
 
-        System.out.println("\nLa máxima nota acumulada es " + maximaNotaAcumulada() + ".");
-        System.out.println("El reparto de horas entre cada asignatura es " + Arrays.toString(horasPorAsignatura()) + ".");
+        System.out.println("\nSolución:  " + Arrays.toString(solucion()));
+        System.out.println("\tValor: " + valor());
 
 
         // Información adicional
         System.out.println("\n--- Información adicional ---");
         System.out.println("\nTabla A:\n" + mostrarTabla(A));
-        System.out.println("\nTabla B:\n" + mostrarTabla(B));
+        System.out.println("\nTabla Auxiliar:\n" + mostrarTabla(aux));
     }
 
 
@@ -76,12 +80,12 @@ public class Ejercicio_03 {
      */
     private static void rellenarTablaA() {
         // Inicializar la tabla
-        A = new int[n][H];
-        B = new int[n][H];
+        A = new int[n][h];
+        aux = new int[n][h];
 
         // Aplicar la ecuación de Bellman
         for (int i = 0; i < n; i++) {
-            for (int j = 1; j < H; j++) {
+            for (int j = 0; j < h; j++) {
                 bellman(i, j);
             }
         }
@@ -92,25 +96,26 @@ public class Ejercicio_03 {
      * concretas de la tabla 'A'.
      *
      * A(i,j) = c(i,j)                                  si  i = 0
-     * A(i,j) = MAX[0 <= k <= j](A(i-1,c-k) + c(i,k))   si  i > 0
+     * A(i,j) = MAX[0 <= k <= j](A(i-1,k) + c(i,l-k))   si  i > 0
      *
      * @param i     Fila de la tabla 'A'
      * @param j     Columna de la tabla 'A'
      */
     private static void bellman(int i, int j) {
-        B[i][j] = 0;
+        aux[i][j] = 0;
 
         // Caso base
         if (i == 0) {
-            A[i][j] = c[i][j];
-            B[i][j] = j;
+            A[i][j] = C[i][j];  // Nota estimada acumulada
+            aux[i][j] = j;      // Horas dedicadas acumuladas
 
-        // Caso "recursivo" (no se usa 'bellman()', sino 'A[][]')
+        // Caso iterativo
         } else {
-            int max = 0, kax = 0;
+            int max = 0;    // Máxima nota acumulada
+            int kax = 0;    // Máxima hora dedicada acumulada
 
             for (int k = 0; k <= j; k++) {
-                int aux = A[i-1][j-k] + c[i][k];
+                int aux = A[i-1][j-k] + C[i][k];
 
                 if (max < aux) {
                     max = aux;
@@ -119,44 +124,35 @@ public class Ejercicio_03 {
             }
 
             A[i][j] = max;
-            B[i][j] = kax;
+            aux[i][j] = kax;
         }
     }
 
     /**
-     * Calcula el interés máximo obtenido al repartir 'M' euros entre las 'n' entidades.
+     * Genera la solución óptima a partir de la tabla generada.
      *
-     * @return  El valor de la tabla 'A' que representa el interés máximo
+     * @return      Solución óptima
      */
-    private static int maximaNotaAcumulada() {
-        int max = 0;
-
-        for (int j = 0; j < H; j++) {
-            int aux = A[n-1][j];
-
-            if (max < aux) {
-                max = aux;
-            }
-        }
-
-        return max;
-    }
-
-    /**
-     * Calcula la cantidad de euros a invertir en cada banco.
-     *
-     * @return  Vector con la cantidad 'm' de euros a invertir en la entidad 'i'
-     */
-    private static int[] horasPorAsignatura() {
-        int[] reparto = new int[n];     // Vector con la distribución de horas
-        int resto = H-1;                // Se resta porque 'H' son las columnas
+    private static int[] solucion() {
+        int[] S = new int[n];           // Vector con la distribución de horas
+        int resto = h-1;                // Se resta porque 'h' son las columnas
 
         for (int i = n-1; i >= 0; i--) {
-            reparto[i] = B[i][resto];
-            resto -= B[i][resto];
+            S[i] = aux[i][resto];
+            resto -= aux[i][resto];
         }
 
-        return reparto;
+        return S;
+    }
+
+    /**
+     * Indica el valor óptimo de la solución
+     * a partir de la tabla generada.
+     *
+     * @return      Valor óptimo
+     */
+    private static int valor() {
+        return A[n-1][h-1];
     }
 
 
@@ -179,7 +175,7 @@ public class Ejercicio_03 {
 
         // Filas
         for (int fil = 0; fil < tabla.length; fil++) {
-            sb.append("\n").append(fil+1).append("\t");
+            sb.append("\n").append((char) (65 + fil)).append("\t");
 
             for (int col = 0; col < tabla[0].length; col++) {
                 sb.append(tabla[fil][col]).append("\t");
