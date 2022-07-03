@@ -130,6 +130,7 @@ public class Ejercicio_11 {
 
         // Inicializar la solución
         List<Integer> S = new ArrayList<>();
+        S.add(T[i][j]);                         // Añadir la celda destino
 
         // Recorrer la tabla A
         while (0 < i || 0 < j) {
