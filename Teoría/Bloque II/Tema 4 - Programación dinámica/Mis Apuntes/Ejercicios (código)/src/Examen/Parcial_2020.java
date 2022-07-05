@@ -4,12 +4,13 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 
 
+
 /**
  * Consideremos 'n' entidades financieras y que cada una ofrece un interés
  * anual diferente según la cantidad de dinero aportada.
- * Así 'interes(i,j)' es el interés que nos dará la entidad financiera 'i'
- * al cabo de un año si depositamos la cantidad 'j'; donde 'i' varía desde
- * 1 hasta 'n' (número de bancos) y 'j' desde 1 hasta 'M' (cantidad en euros).
+ * Así 'I(i,j)' es el interés que nos dará la entidad financiera 'i' al cabo
+ * de un año si depositamos la cantidad 'j'; donde 'i' varía desde 1 hasta
+ * 'n' (número de bancos) y 'j' desde 1 hasta 'M' (cantidad en euros).
  *
  * Se pretende distribuir 'M' euros entre las 'n' entidades
  * de forma que el interés total obtenido sea máximo.
@@ -18,21 +19,6 @@ import java.util.Arrays;
  * @author Antonio J. Galán Herrera
  */
 public class Parcial_2020 {
-
-    // NOTA referente al parcial 2018-2019 (mismo ejercicio):
-    // El de 2020-2021 ya incluye M = 0 en el ejemplo.
-
-    /*
-    Nótese que la primera columna es 0.0, correspondiente a un interés de M = 0 euros.
-
-    Esta columna se utiliza para facilitar el proceso de programación dinámica, y se llega a
-    esta conclusión tras intentar rellenar la tabla 'A' por primera vez, como un caso base;
-    ya que como la tabla A maneja el caso base de M = 0, entonces también debería haber un
-    interés con 0; y es necesario que la tabla A tenga un caso 0, porque requiere repartir
-    el dinero y es posible que se repartan 0 euros a una entidad.
-
-    Por tanto, debe haber un interés para M = 0 y por lógica, lo normal es que sea 0.0.
-    */
 
     // Datos del problema
     private static double[][] I;    // Tabla que representa el interés anual de cada banco
@@ -81,7 +67,7 @@ public class Parcial_2020 {
 
 
         // Información adicional
-        System.out.println("\n--- Información adicional ---");
+        System.out.println("\n--- Información adicional ---\n");
         System.out.println("Tabla A:\n" + mostrarTabla(A) + "\n");
     }
 

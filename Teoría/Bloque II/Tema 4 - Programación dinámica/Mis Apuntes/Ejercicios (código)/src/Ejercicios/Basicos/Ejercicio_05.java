@@ -6,7 +6,7 @@ package Ejercicios.Basicos;
  * PROBLEMA:
  * A lo largo de un río que solo se puede navegar en una dirección,
  * se encuentran 'n' embarcaderos.
- * Se concoce el coste 'T(i,j)' para ir del embarcadero 'i' al 'j',
+ * Se conoce el coste 'T(i,j)' para ir del embarcadero 'i' al 'j',
  * que puede ser más barato o más caro que un recorrido de 'i' a 'j'
  * con paradas intermedias.
  *
