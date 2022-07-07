@@ -1,4 +1,4 @@
-package Ejercicios.Basicos;
+package Ejercicios.Complementarios;
 
 import java.util.Arrays;
 
