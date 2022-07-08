@@ -59,29 +59,10 @@ public class Parcial_2014 {
     // Algoritmo voraz
     // -------------------------------------------------------------------------
 
-    /*
-    HEURÍSTICA:
-    Ordenando los ítems de mayor a menor precio, se consigue que el ítem más caro tenga
-    la tasa más barata, por lo que el precio acumulado que se va arrastrando es mínimo.
-    Para cada semana, el valor de la compra resulta:
-
-    Compra 0:   C·Tn^t0                                             -> El más barato
-    Compra 1:   C·Tn^t0 + C·Tn-1^t1                                 -> Cuesta más que el primero
-    Compra 2:   C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2                     -> Cuesta más que el segundo y el primero
-    ( . . . )
-    Compra n:   C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2 + ... + C·T0^tn     -> El más caro
-
-    Al final, se trata de comprar primero los ítems más caros para que tengan una tasa
-    menor y su precio no se infle demasiado para que el valor final sea mínimo.
-
-    Dicho mínimo surge de la fórmula:   n·(C·Tn^t0) + (n-1)·(C·Tn-1^t1) + ... + 1·(C·T0^tn),
-    que se obtiene al sumar el valor de todas las compras, teniendo en cuenta:
-
-    Total = C·Tn^t0 + (C·Tn^t0 + C·Tn-1^t1) + ... + (C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2 + ... + C·T0^tn).
-     */
-
     /**
-     * Resuelve el problema de comprar 'n' ítems.
+     * HEURÍSTICA:
+     * Ordenando los ítems de mayor a menor precio, se consigue que el ítem más caro tenga
+     * la tasa más barata, por lo que el precio acumulado que se va arrastrando es mínimo.
      *
      * @return  Vector de ítems
      */
@@ -89,6 +70,24 @@ public class Parcial_2014 {
         // Inicializar la solución con una copia de las tasas
         int[] tasas = Arrays.copyOf(T, n);
         int[] solucion = new int[n];
+
+        /*
+        Para cada semana, el valor de la compra resulta:
+
+        Compra 0:   C·Tn^t0                                             -> El más barato
+        Compra 1:   C·Tn^t0 + C·Tn-1^t1                                 -> Cuesta más que el primero
+        Compra 2:   C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2                     -> Cuesta más que el segundo y el primero
+        ( . . . )
+        Compra n:   C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2 + ... + C·T0^tn     -> El más caro
+
+        Al final, se trata de comprar primero los ítems más caros para que tengan una tasa
+        menor y su precio no se infle demasiado para que el valor final sea mínimo.
+
+        Dicho mínimo surge de la fórmula:   n·(C·Tn^t0) + (n-1)·(C·Tn-1^t1) + ... + 1·(C·T0^tn),
+        que se obtiene al sumar el valor de todas las compras, teniendo en cuenta:
+
+        Total = C·Tn^t0 + (C·Tn^t0 + C·Tn-1^t1) + ... + (C·Tn^t0 + C·Tn-1^t1 + C·Tn-2^t2 + ... + C·T0^tn).
+        */
 
         ordenar(tasas);
 
