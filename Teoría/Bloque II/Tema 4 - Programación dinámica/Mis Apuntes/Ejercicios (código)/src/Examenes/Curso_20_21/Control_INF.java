@@ -1,4 +1,4 @@
-package Examen;
+package Examenes.Curso_20_21;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import java.util.Arrays;
  *
  * @author Antonio J. Galán Herrera
  */
-public class Parcial_2020 {
+public class Control_INF {
 
     // Datos del problema
     private static double[][] I;    // Tabla que representa el interés anual de cada banco
