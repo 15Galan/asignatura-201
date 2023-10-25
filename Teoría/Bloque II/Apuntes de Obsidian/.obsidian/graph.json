@@ -1,0 +1,65 @@
+{
+  "collapse-filter": true,
+  "search": "path:\"4 - Programación Dinámica\" OR path:\"5 - Algoritmos Voraces/\"",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "tag:#tema4/examen OR tag:#tema5/examen",
+      "color": {
+        "a": 1,
+        "rgb": 13107455
+      }
+    },
+    {
+      "query": "tag:#estado/correcto",
+      "color": {
+        "a": 1,
+        "rgb": 3342130
+      }
+    },
+    {
+      "query": "tag:#estado/incompleto",
+      "color": {
+        "a": 1,
+        "rgb": 16777010
+      }
+    },
+    {
+      "query": "tag:#estado/incorrecto",
+      "color": {
+        "a": 1,
+        "rgb": 16724530
+      }
+    },
+    {
+      "query": "path:\"4 - Programación Dinámica\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 38655
+      }
+    },
+    {
+      "query": "path:\"5 - Algoritmos Voraces\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 16750080
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": true,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250,
+  "scale": 0.7132754626224435,
+  "close": true
+}

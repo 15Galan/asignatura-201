@@ -1,0 +1,254 @@
+{
+  "main": {
+    "id": "d664b9e178c798ec",
+    "type": "split",
+    "children": [
+      {
+        "id": "70190c35ebc95893",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "21503c4419ac1743",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Inicio.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "stacked": true
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "706d2c3d2fb281ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "7dcba16a75e4f653",
+        "type": "tabs",
+        "dimension": 51.907630522088354,
+        "children": [
+          {
+            "id": "12c70e26befd15a3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Inicio.md"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "e64a23135ac42370",
+        "type": "tabs",
+        "dimension": 48.092369477911646,
+        "children": [
+          {
+            "id": "af5a8f1c2d570532",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b288af689985d4dc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "dd1d8d53ba39ef05",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "alphabetical",
+                "useHierarchy": true
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 338.5
+  },
+  "right": {
+    "id": "18717cda5e425b5e",
+    "type": "split",
+    "children": [
+      {
+        "id": "425dd9e0e0eb39b8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c6e9c792322a8a38",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          },
+          {
+            "id": "53e06ee0fd5e88d0",
+            "type": "leaf",
+            "state": {
+              "type": "localgraph",
+              "state": {
+                "file": "Inicio.md",
+                "options": {
+                  "collapse-filter": true,
+                  "search": "",
+                  "localJumps": 1,
+                  "localBacklinks": true,
+                  "localForelinks": true,
+                  "localInterlinks": false,
+                  "showTags": false,
+                  "showAttachments": false,
+                  "hideUnresolved": true,
+                  "collapse-color-groups": true,
+                  "colorGroups": [
+                    {
+                      "query": "path:\"4 - Programación Dinámica/4.1 - Teoría\"  ",
+                      "color": {
+                        "a": 1,
+                        "rgb": 9881854
+                      }
+                    },
+                    {
+                      "query": "path:\"4 - Programación Dinámica/4.2 - Práctica\"  ",
+                      "color": {
+                        "a": 1,
+                        "rgb": 38655
+                      }
+                    },
+                    {
+                      "query": "path:\"5 - Algoritmos Voraces/5.1 - Teoría\"  ",
+                      "color": {
+                        "a": 1,
+                        "rgb": 16750230
+                      }
+                    },
+                    {
+                      "query": "path:\"5 - Algoritmos Voraces/5.2 - Práctica\"  ",
+                      "color": {
+                        "a": 1,
+                        "rgb": 16711680
+                      }
+                    }
+                  ],
+                  "collapse-display": true,
+                  "showArrow": true,
+                  "textFadeMultiplier": -1,
+                  "nodeSizeMultiplier": 1,
+                  "lineSizeMultiplier": 1,
+                  "collapse-forces": true,
+                  "centerStrength": 0.518713248970312,
+                  "repelStrength": 10,
+                  "linkStrength": 1,
+                  "linkDistance": 250,
+                  "scale": 0.5443310539518176,
+                  "close": true
+                }
+              }
+            }
+          },
+          {
+            "id": "ae6a022700b66406",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Inicio.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "dede27c895c98d2b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Inicio.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 625.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "workspaces:Gestionar disposiciones de espacio de trabajo": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "markdown-importer:Abrir el importador de Markdown": false,
+      "audio-recorder:Empezar/Parar de grabar": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": true
+    }
+  },
+  "active": "21503c4419ac1743",
+  "lastOpenFiles": [
+    "Sin título.md",
+    "Inicio.md",
+    "4 - Programación Dinámica/4.1 - Teoría/Memoización.md",
+    "0 - Recursos/Plantillas/T4 - Ejercicio.md",
+    "0 - Recursos/Plantillas/T5 - Ejercicio.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Cambio de Monedas.md",
+    "5 - Algoritmos Voraces/P.D vs A.V.md",
+    "5 - Algoritmos Voraces/5.2 - Práctica/Policías y Ladrones.md",
+    "5 - Algoritmos Voraces/5.2 - Práctica/Rápida Inflación.md",
+    "5 - Algoritmos Voraces/5.1 - Teoría/Algoritmo Voraz.md",
+    "4 - Programación Dinámica/Libro de Ejercicios Resueltos.md",
+    "4 - Programación Dinámica/Cómo resolver un problema.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Vector de Saltos.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Vacunas de Libertonia.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Transmisión de Mensajes.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Transformación de Cadenas.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Tarifa Telefónica.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Sumaducto.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Subsecuencia Común Más Larga.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Quiniela del Familiar.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Multiplicación Encadenada de Matrices.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Motas WiFi.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md",
+    "4 - Programación Dinámica/4.2 - Práctica/Ladrón de Joyas.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Juego del Tablero.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Estudiante Aventajado.md"
+  ]
+}

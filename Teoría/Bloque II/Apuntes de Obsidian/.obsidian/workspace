@@ -1,0 +1,225 @@
+{
+  "main": {
+    "id": "d664b9e178c798ec",
+    "type": "split",
+    "children": [
+      {
+        "id": "f043052725d4b677",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "706d2c3d2fb281ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "7dcba16a75e4f653",
+        "type": "tabs",
+        "dimension": 28.24858757062147,
+        "children": [
+          {
+            "id": "12c70e26befd15a3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "e64a23135ac42370",
+        "type": "tabs",
+        "dimension": 71.75141242937853,
+        "children": [
+          {
+            "id": "d1682e2a25630602",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          },
+          {
+            "id": "b288af689985d4dc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "dd1d8d53ba39ef05",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "af5a8f1c2d570532",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#estado/incompleto",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "18717cda5e425b5e",
+    "type": "split",
+    "children": [
+      {
+        "id": "425dd9e0e0eb39b8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c6e9c792322a8a38",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          },
+          {
+            "id": "53e06ee0fd5e88d0",
+            "type": "leaf",
+            "state": {
+              "type": "localgraph",
+              "state": {
+                "file": "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md",
+                "options": {
+                  "collapse-filter": true,
+                  "search": "path:\"4 - Programación Dinámica/4.2 - Práctica\" OR path:\"5 - Algoritmos Voraces/5.2 - Práctica\"",
+                  "localJumps": 1,
+                  "localBacklinks": true,
+                  "localForelinks": true,
+                  "localInterlinks": true,
+                  "showTags": false,
+                  "showAttachments": false,
+                  "hideUnresolved": true,
+                  "collapse-color-groups": true,
+                  "colorGroups": [
+                    {
+                      "query": "(tag:#tema4/examen OR tag:#tema5/examen) AND tag:#estado/correcto",
+                      "color": {
+                        "a": 1,
+                        "rgb": 14745855
+                      }
+                    },
+                    {
+                      "query": "tag:#estado/correcto",
+                      "color": {
+                        "a": 1,
+                        "rgb": 65280
+                      }
+                    },
+                    {
+                      "query": "tag:#estado/incompleto",
+                      "color": {
+                        "a": 1,
+                        "rgb": 65535
+                      }
+                    },
+                    {
+                      "query": "tag:#estado/incorrecto",
+                      "color": {
+                        "a": 1,
+                        "rgb": 16711680
+                      }
+                    }
+                  ],
+                  "collapse-display": true,
+                  "showArrow": false,
+                  "textFadeMultiplier": -1,
+                  "nodeSizeMultiplier": 1,
+                  "lineSizeMultiplier": 1,
+                  "collapse-forces": true,
+                  "centerStrength": 0.518713248970312,
+                  "repelStrength": 10,
+                  "linkStrength": 1,
+                  "linkDistance": 250,
+                  "scale": 0.7132754626224455,
+                  "close": true
+                }
+              }
+            }
+          },
+          {
+            "id": "8995c6ac50e35faf",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "fd3c483187ed31e6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "4 - Programación Dinámica/4.2 - Práctica/Mochila (0,1).md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 326.0046081542969
+  },
+  "active": "f043052725d4b677",
+  "lastOpenFiles": [
+    "4 - Programación Dinámica/4.1 - Teoría/Programación Dinámica.md",
+    "4 - Programación Dinámica/4.1 - Teoría/Subproblemas solapados.md",
+    "4 - Programación Dinámica/4.1 - Teoría/Principio de Optimalidad.md",
+    "4 - Programación Dinámica/4.1 - Teoría/Ecuación de Bellman.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Cambio de Monedas.md",
+    "0 - Recursos/Plantillas/T4 - Ejercicio.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Tarifa Telefónica.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Antecesor Común Ancestral.md",
+    "Inicio.md",
+    "4 - Programación Dinámica/4.2 - Práctica/Central Nuclear.md"
+  ]
+}
