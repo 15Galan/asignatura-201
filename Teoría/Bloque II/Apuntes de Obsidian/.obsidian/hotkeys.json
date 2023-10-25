@@ -1,0 +1,12 @@
+{
+  "workspaces:open-modal": [],
+  "workspaces:load": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "W"
+    }
+  ]
+}
